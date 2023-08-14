@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    include:
+      - datasource
+      - external-client
+  application:
+    name: location-api
+  mvc:
+    throw-exception-if-no-handler-found: true
+    dispatch-options-request: true
+  servlet:
+    multipart:
+      location: ${TEMPFILE_LOCATION}
+      max-file-size: 50MB
+      max-request-size: 50MB
+  main:
+    allow-bean-definition-overriding: true
+  web:
+    resources:
+      add-mappings: false
+
+server:
+  servlet:
+    encoding:
+      force: true
+      enabled: true
+      charset: UTF-8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, prometheus

@@ -1,0 +1,112 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.8'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2'
+}
+
+ext {
+    guavaVer = '31.1-jre'
+}
+
+def javaProjects = subprojects.findAll {
+    it.name != 'location-modules' && it.name != 'location-layers'
+}
+configure(javaProjects) {
+    group 'biz.riman.location'
+    version '1.0.0'
+
+    apply plugin: 'java'
+    apply plugin: 'project-report'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+
+    def javaVer = '17'
+    targetCompatibility = javaVer
+    sourceCompatibility = javaVer
+    compileJava.options.encoding = "UTF-8"
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:2021.0.3"
+            mavenBom "io.awspring.cloud:spring-cloud-aws-dependencies:2.3.5"
+        }
+    }
+
+    ext {
+        snippetsDir = file('build/generated-snippets')
+    }
+
+    test {
+        outputs.dir snippetsDir
+        useJUnitPlatform{
+            excludeTags 'integration-test'
+        }
+    }
+
+    task integrationTest(type: Test) {
+        maxHeapSize = "4g"
+        useJUnitPlatform() {
+            includeTags 'integration-test'
+        }
+        shouldRunAfter test
+    }
+}
+
+// restDoc 모듈
+def restDocProjects = [project(':location-api-server')]
+configure(restDocProjects) {
+    apply plugin: "org.asciidoctor.jvm.convert"
+
+    configurations {
+        asciidoctorExt
+    }
+
+    asciidoctor {
+        dependsOn test
+        inputs.dir snippetsDir
+        sources{
+            include("**/index.adoc","**/common/*.adoc")
+        }
+        baseDirFollowsSourceFile()
+    }
+
+    asciidoctor.doFirst {
+        delete file('src/main/resources/static/docs')
+    }
+
+    task copyDocument(type: Copy) {
+        dependsOn asciidoctor
+        from file("build/docs/asciidoc")
+        into file("src/main/resources/static/docs")
+    }
+
+    build {
+        dependsOn copyDocument
+    }
+
+    bootJar {
+        dependsOn asciidoctor
+        from("${asciidoctor.outputDir}/") {
+            into 'static/docs'
+        }
+    }
+
+    dependencies {
+        asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+        testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    }
+}
+
+task buildAll(type: GradleBuild) {
+    tasks = ['clean', 'build', 'integrationTest']
+}

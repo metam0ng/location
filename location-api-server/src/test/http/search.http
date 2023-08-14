@@ -1,0 +1,3 @@
+### keyword로 장소 조회
+GET http://localhost:8080/v1/locations/search?keyword=당근
+Content-Type: application/json

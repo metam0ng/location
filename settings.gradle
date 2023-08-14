@@ -1,0 +1,6 @@
+rootProject.name = 'location'
+include 'location-common'
+include 'location-api-server'
+include 'location-repository'
+include 'location-external-client'
+

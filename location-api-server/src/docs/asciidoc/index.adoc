@@ -1,0 +1,61 @@
+:hardbreaks:
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+= 장소 검색 서비스 API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+:sectlinks:
+
+[[introduction]]
+== 소개
+"장소 검색 서비스"를 위한 API
+
+
+=== Domain
+|===
+| 환경 | domain
+| SERVER | `http://localhost:8080`
+| H2 DB CONSOLE | `http://localhost:8080/h2-console`
+|===
+
+
+[[장소]]
+== 장소 API
+
+=== 장소 검색
+==== Request
+Request Parameters:
+include::{snippets}/search-by-keyword/request-parameters.adoc[]
+
+Request Example:
+include::{snippets}/search-by-keyword/http-request.adoc[]
+
+==== Response
+Response Fields:
+include::{snippets}/search-by-keyword/response-fields.adoc[]
+
+Response Example:
+include::{snippets}/search-by-keyword/http-response.adoc[]
+
+
+[[키워드]]
+== 키워드 API
+
+=== 사용자들이 많이 검색한 순서대로, 최대 10개의 검색 키워드 목록
+==== Request
+
+Request Example:
+include::{snippets}/keyword-top-10/http-request.adoc[]
+
+==== Response
+Response Fields:
+include::{snippets}/keyword-top-10/response-fields.adoc[]
+
+Response Example:
+include::{snippets}/keyword-top-10/http-response.adoc[]
+
+

@@ -1,0 +1,15 @@
+client:
+  external:
+    client-mode: rest
+    kakao-url: https://dapi.kakao.com
+    naver-url: https://openapi.naver.com
+    connect-timeout: 2s
+    read-timeout: 5s
+
+---
+
+spring.config.activate.on-profile: test
+clients:
+  map:
+    client-mode: stub
+
