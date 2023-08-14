@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 public class KeywordDto {
 
-
     private String keyword;
 
     private Long count;

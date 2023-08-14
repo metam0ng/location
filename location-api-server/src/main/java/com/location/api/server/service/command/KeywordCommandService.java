@@ -3,6 +3,7 @@ package com.location.api.server.service.command;
 import com.location.api.server.domain.Keyword;
 import com.location.api.server.repository.command.KeywordCommandRepository;
 import com.location.api.server.repository.factory.KeywordFactory;
+import com.location.common.annotation.Retry;
 import com.location.common.holder.CountHolder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ public class KeywordCommandService {
     private final KeywordCommandRepository keywordCommandRepository;
 
     @Transactional
+    @Retry
     public Keyword increaseCount(String keyword) {
         Keyword targetKeyword = keywordCommandRepository.findByKeyword(keyword)
                 .map(domain -> domain.increaseCount(countHolder))

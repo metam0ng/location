@@ -13,6 +13,7 @@ public class KeywordEntityFactory {
                 .keywordId(keyword.getKeywordId())
                 .keyword(keyword.getKeyword())
                 .count(keyword.getCount())
+                .version(keyword.getVersion())
                 .build();
     }
 }

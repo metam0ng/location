@@ -10,14 +10,17 @@ public class Keyword {
     private Long keywordId;
     private String keyword;
     private Long count;
+    private int version;
 
     @Builder
     public Keyword(Long keywordId,
                    String keyword,
-                   Long count) {
+                   Long count,
+                   int version) {
         this.keywordId = keywordId;
         this.keyword = keyword;
         this.count = count;
+        this.version = version;
     }
 
     public Keyword increaseCount(CountHolder countHolder) {

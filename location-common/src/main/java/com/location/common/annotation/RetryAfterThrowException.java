@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Retry {
-    int value() default 5;
+public @interface RetryAfterThrowException {
+    int value() default 3;
 }
