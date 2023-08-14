@@ -19,18 +19,23 @@ public class KeywordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long keywordId;
 
-    @Column(name = "keyword", nullable = false, columnDefinition = "varchar(200) COMMENT '검색 키워드'")
+    @Column(name = "keyword", nullable = false, columnDefinition = "varchar(200) COMMENT '검색 키워드'", unique = true)
     private String keyword;
 
     @Column(name = "count", nullable = false, columnDefinition = "bigint COMMENT '검색 수'")
     private Long count;
 
+    @Version
+    private int version;
+
     @Builder
     public KeywordEntity(Long keywordId,
                          String keyword,
-                         Long count) {
+                         Long count,
+                         int version) {
         this.keywordId = keywordId;
         this.keyword = keyword;
         this.count = count;
+        this.version = version;
     }
 }

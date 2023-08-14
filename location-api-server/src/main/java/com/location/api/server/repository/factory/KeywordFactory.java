@@ -14,6 +14,7 @@ public class KeywordFactory {
                 .keywordId(keywordEntity.getKeywordId())
                 .keyword(keywordEntity.getKeyword())
                 .count(keywordEntity.getCount())
+                .version(keywordEntity.getVersion())
                 .build();
     }
 
