@@ -1,7 +1,7 @@
 bootJar.enabled = false
 jar.enabled = true
 
-description = "외부 지도 연동 모듈"
+description = "외부 연동 모듈"
 
 dependencies {
     implementation project(':location-common')
