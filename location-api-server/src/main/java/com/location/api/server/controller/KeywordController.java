@@ -28,7 +28,7 @@ public class KeywordController {
      */
     @GetMapping("/keywords")
     public ResponseEntity<ApiResponse<List<KeywordResponse>>> findKeywords() {
-        List<KeywordResponse> response = keywordQueryService.findKeywords();
+        List<KeywordResponse> response = keywordQueryService.findKeywordTop10();
         ApiResponse<List<KeywordResponse>> apiResponse = ApiResponseGenerator.success(response);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package com.location.api.server.domain;
 
+import com.location.common.holder.ErrorRangeHolder;
 import com.location.external.client.spec.dto.CoordinateDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,10 +33,10 @@ public class Coordinate {
                 .build();
     }
 
-    public boolean isEquals(Coordinate target) {
+    public boolean isEquals(Coordinate target,
+                            ErrorRangeHolder errorRangeHolder) {
         // 좌표 비교
-        final double COORDINATE_THRESHOLD = 0.001;
-        return !(Math.abs(this.x - target.getX()) > COORDINATE_THRESHOLD) &&
-                !(Math.abs(this.y - target.getY()) > COORDINATE_THRESHOLD);
+        return !(Math.abs(this.x - target.getX()) > errorRangeHolder.errorRange()) &&
+                !(Math.abs(this.y - target.getY()) > errorRangeHolder.errorRange());
     }
 }

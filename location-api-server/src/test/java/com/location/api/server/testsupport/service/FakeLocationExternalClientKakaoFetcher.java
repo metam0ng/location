@@ -7,7 +7,7 @@ import com.location.external.client.spec.dto.LocationClientResponse;
 
 import java.util.List;
 
-public class LocationExternalClientKakaoTestFetcher implements LocationExternalClientFetcher {
+public class FakeLocationExternalClientKakaoFetcher implements LocationExternalClientFetcher {
     @Override
     public boolean isSupport(ApiType apiType) {
         return ApiType.KAKAO == apiType;

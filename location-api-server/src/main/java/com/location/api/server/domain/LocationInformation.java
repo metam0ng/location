@@ -1,13 +1,12 @@
 package com.location.api.server.domain;
 
+import com.location.common.holder.ErrorRangeHolder;
 import com.location.external.client.spec.dto.LocationClientResponse;
 import lombok.Builder;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@ToString
 public class LocationInformation {
 
     private List<Location> locationList;
@@ -62,7 +61,8 @@ public class LocationInformation {
     }
 
 
-    public List<String> findSameLocationAndRemove(LocationInformation naverLocationInformation) {
+    public List<String> findSameLocationAndRemove(LocationInformation naverLocationInformation,
+                                                  ErrorRangeHolder errorRangeHolder) {
         List<String> result = new ArrayList<>();
         List<Location> kakaoToRemove = new ArrayList<>();
         List<Location> naverToRemove = new ArrayList<>();
@@ -71,7 +71,7 @@ public class LocationInformation {
             if (i == 5) break;
             Location kakaoInformation = this.locationList.get(i);
             for (Location naverInformation : naverLocationInformation.getAll()) {
-                if (kakaoInformation.isEquals(naverInformation)) {
+                if (kakaoInformation.isEquals(naverInformation, errorRangeHolder)) {
                     result.add(kakaoInformation.getName());
                     kakaoToRemove.add(kakaoInformation);
                     naverToRemove.add(naverInformation);
