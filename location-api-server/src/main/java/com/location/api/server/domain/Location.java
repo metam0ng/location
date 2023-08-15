@@ -1,5 +1,6 @@
 package com.location.api.server.domain;
 
+import com.location.common.holder.ErrorRangeHolder;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -24,7 +25,8 @@ public class Location {
         return this.coordinate.getY();
     }
 
-    public boolean isEquals(Location location) {
-        return this.coordinate.isEquals(location.coordinate);
+    public boolean isEquals(Location location,
+                            ErrorRangeHolder errorRangeHolder) {
+        return this.coordinate.isEquals(location.coordinate, errorRangeHolder);
     }
 }

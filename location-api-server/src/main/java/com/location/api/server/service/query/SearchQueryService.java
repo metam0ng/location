@@ -4,6 +4,7 @@ import com.location.api.server.domain.LocationInformation;
 import com.location.api.server.event.SearchEvent;
 import com.location.api.server.infrastructure.LocationExternalFetcher;
 import com.location.api.server.infrastructure.code.ExternalType;
+import com.location.common.holder.ErrorRangeHolder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -17,6 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchQueryService {
 
+    private final ErrorRangeHolder errorRangeHolder;
     private final LocationExternalFetcher locationExternalFetcher;
     private final ApplicationEventPublisher applicationEventPublisher;
     private static final int TOTAL_SIZE = 10;
@@ -35,7 +37,7 @@ public class SearchQueryService {
                                       LocationInformation naverLocationInformation) {
         List<String> result = new ArrayList<>();
         // 카카오 결과에 기반하여 먼저 추가
-        result.addAll(kakaoLocationInformation.findSameLocationAndRemove(naverLocationInformation));
+        result.addAll(kakaoLocationInformation.findSameLocationAndRemove(naverLocationInformation, errorRangeHolder));
         // 카카오에만 있는 결과 추가
         result.addAll(kakaoLocationInformation.findLocationName(10 - result.size() - naverLocationInformation.size()));
         // 네이버에만 있는 결과 추가

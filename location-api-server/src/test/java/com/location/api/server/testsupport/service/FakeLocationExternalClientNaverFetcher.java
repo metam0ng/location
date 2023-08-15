@@ -7,7 +7,7 @@ import com.location.external.client.spec.dto.LocationClientResponse;
 
 import java.util.List;
 
-public class LocationExternalClientNaverTestFetcher implements LocationExternalClientFetcher {
+public class FakeLocationExternalClientNaverFetcher implements LocationExternalClientFetcher {
     @Override
     public boolean isSupport(ApiType apiType) {
         return ApiType.NAVER == apiType;

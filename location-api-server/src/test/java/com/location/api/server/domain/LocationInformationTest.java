@@ -1,5 +1,6 @@
 package com.location.api.server.domain;
 
+import com.location.api.server.testsupport.service.FakeErrorRangeHolder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -128,7 +129,7 @@ class LocationInformationTest {
                 .build();
 
         // when
-        List<String> result = firstInformations.findSameLocationAndRemove(secondInformations);
+        List<String> result = firstInformations.findSameLocationAndRemove(secondInformations, new FakeErrorRangeHolder());
 
         //then
         assertThat(result.get(0)).isEqualTo("카카오 프렌즈 삼성점");

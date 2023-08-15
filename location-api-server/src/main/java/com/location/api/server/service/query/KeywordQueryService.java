@@ -14,7 +14,7 @@ import java.util.List;
 public class KeywordQueryService {
 
     private final KeywordQueryRepository keywordQueryRepository;
-    public List<KeywordResponse> findKeywords() {
+    public List<KeywordResponse> findKeywordTop10() {
         return keywordQueryRepository.findKeywordTop10();
     }
 }

@@ -1,10 +1,7 @@
 package com.location.repository.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -18,6 +15,7 @@ public class KeywordDto {
 
     private Long count;
 
+    @Builder
     @QueryProjection
     public KeywordDto(String keyword,
                       Long count) {

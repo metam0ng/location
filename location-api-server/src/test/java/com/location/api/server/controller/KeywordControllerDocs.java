@@ -73,7 +73,7 @@ public class KeywordControllerDocs {
                 KeywordResponse.builder().keyword("은행").count(87L).build(),
                 KeywordResponse.builder().keyword("지하철").count(1L).build()
         );
-        given(queryService.findKeywords()).willReturn(response);
+        given(queryService.findKeywordTop10()).willReturn(response);
 
         // expect
         this.mockMvc.perform(
