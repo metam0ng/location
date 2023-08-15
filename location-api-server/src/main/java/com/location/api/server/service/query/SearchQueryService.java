@@ -27,10 +27,12 @@ public class SearchQueryService {
 
 
     public List<String> searchLocationByKeyword(String keyword) {
-        LocationInformation kakaoLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.KAKAO, keyword, KAKAO_SIZE, TOTAL_SIZE);
-        LocationInformation naverLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER, keyword, NAVER_SIZE, TOTAL_SIZE);
-        applicationEventPublisher.publishEvent(new SearchEvent(this, keyword));
-        return mergeResults(kakaoLocationInformation, naverLocationInformation);
+        String stripKeyword = keyword.strip();
+        LocationInformation kakaoLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.KAKAO, stripKeyword, KAKAO_SIZE, TOTAL_SIZE);
+        LocationInformation naverLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER, stripKeyword, NAVER_SIZE, TOTAL_SIZE);
+        List<String> results = mergeResults(kakaoLocationInformation, naverLocationInformation);
+        applicationEventPublisher.publishEvent(new SearchEvent(this, stripKeyword));
+        return results;
     }
 
     private List<String> mergeResults(LocationInformation kakaoLocationInformation,
@@ -39,11 +41,13 @@ public class SearchQueryService {
         // 카카오 결과에 기반하여 먼저 추가
         result.addAll(kakaoLocationInformation.findSameLocationAndRemove(naverLocationInformation, errorRangeHolder));
         // 카카오에만 있는 결과 추가
-        result.addAll(kakaoLocationInformation.findLocationName(10 - result.size() - naverLocationInformation.size()));
+        int findKakaoCount = 10 - result.size() - naverLocationInformation.size();
+        result.addAll(kakaoLocationInformation.findLocationName(findKakaoCount));
         // 네이버에만 있는 결과 추가
         result.addAll(naverLocationInformation.findLocationName());
         // 나머지 부족한 10개 맞추기
-        result.addAll(kakaoLocationInformation.findLocationName(10 - result.size()));
+        int leftCount = 10 - result.size();
+        result.addAll(kakaoLocationInformation.findLocationName(leftCount));
 
         return result;
     }
