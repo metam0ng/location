@@ -1,5 +1,6 @@
 package com.location.api.server.controller;
 
+import com.location.api.server.dto.response.SearchResponse;
 import com.location.api.server.service.query.SearchQueryService;
 import com.location.common.response.ApiResponse;
 import com.location.common.response.ApiResponseGenerator;
@@ -29,9 +30,9 @@ public class SearchController {
      * @return
      */
     @GetMapping("/search")
-    public ResponseEntity<ApiResponse<List<String>>> searchLocationByKeyword(@RequestParam @NonNull String keyword) {
-        List<String> response = searchQueryService.searchLocationByKeyword(keyword);
-        ApiResponse<List<String>> apiResponse = ApiResponseGenerator.success(response);
+    public ResponseEntity<ApiResponse<List<SearchResponse>>> searchLocationByKeyword(@RequestParam @NonNull String keyword) {
+        List<SearchResponse> response = searchQueryService.searchLocationByKeyword(keyword);
+        ApiResponse<List<SearchResponse>> apiResponse = ApiResponseGenerator.success(response);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 

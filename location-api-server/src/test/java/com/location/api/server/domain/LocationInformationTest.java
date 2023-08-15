@@ -1,5 +1,6 @@
 package com.location.api.server.domain;
 
+import com.location.api.server.dto.response.SearchResponse;
 import com.location.api.server.testsupport.service.FakeErrorRangeHolder;
 import org.junit.jupiter.api.Test;
 
@@ -36,6 +37,7 @@ class LocationInformationTest {
         List<Location> location = List.of(Location.builder()
                 .name(name)
                 .coordinate(Coordinate.of(126.981682046205, 37.5635252637636))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build());
         LocationInformation response = LocationInformation.builder()
                 .locationList(location)
@@ -59,6 +61,7 @@ class LocationInformationTest {
         List<Location> location = List.of(Location.builder()
                 .name(name)
                 .coordinate(Coordinate.of(126.981682046205, 37.5635252637636))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build());
         LocationInformation response = LocationInformation.builder()
                 .locationList(location)
@@ -78,6 +81,7 @@ class LocationInformationTest {
         Location location = Location.builder()
                 .name("카카오 프렌즈 삼성점")
                 .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         LocationInformation locationInformation = LocationInformation.builder()
                 .locationList(List.of(location))
@@ -96,6 +100,7 @@ class LocationInformationTest {
         Location location = Location.builder()
                 .name("카카오 프렌즈 삼성점")
                 .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         LocationInformation locationInformation = LocationInformation.builder()
                 .locationList(List.of(location))
@@ -115,6 +120,7 @@ class LocationInformationTest {
         Location firstInformation = Location.builder()
                 .name("카카오 프렌즈 삼성점")
                 .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         LocationInformation firstInformations = LocationInformation.builder()
                 .locationList(List.of(firstInformation))
@@ -123,16 +129,17 @@ class LocationInformationTest {
         Location secondInformation = Location.builder()
                 .name("카카오 프렌즈 삼성점")
                 .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         LocationInformation secondInformations = LocationInformation.builder()
                 .locationList(List.of(secondInformation))
                 .build();
 
         // when
-        List<String> result = firstInformations.findSameLocationAndRemove(secondInformations, new FakeErrorRangeHolder());
+        List<SearchResponse> result = firstInformations.findSameLocationAndRemove(secondInformations, new FakeErrorRangeHolder());
 
         //then
-        assertThat(result.get(0)).isEqualTo("카카오 프렌즈 삼성점");
+        assertThat(result.get(0).getName()).isEqualTo("카카오 프렌즈 삼성점");
         assertThat(firstInformations.isEmpty()).isTrue();
     }
 
@@ -142,21 +149,23 @@ class LocationInformationTest {
         Location firstInformation = Location.builder()
                 .name("카카오 프렌즈 삼성점")
                 .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         Location secondInformation = Location.builder()
                 .name("카카오 프렌즈 강남점")
                 .coordinate(Coordinate.of(130.57066130083415, 36.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         LocationInformation locationInformation = LocationInformation.builder()
                 .locationList(List.of(firstInformation, secondInformation))
                 .build();
 
         // when
-        List<String> result = locationInformation.findLocationName();
+        List<SearchResponse> result = locationInformation.findLocationName();
 
         // then
-        assertThat(result.get(0)).isEqualTo("카카오 프렌즈 삼성점");
-        assertThat(result.get(1)).isEqualTo("카카오 프렌즈 강남점");
+        assertThat(result.get(0).getName()).isEqualTo("카카오 프렌즈 삼성점");
+        assertThat(result.get(1).getName()).isEqualTo("카카오 프렌즈 강남점");
         assertThat(result.size()).isEqualTo(2);
     }
 
@@ -166,20 +175,22 @@ class LocationInformationTest {
         Location firstInformation = Location.builder()
                 .name("카카오 프렌즈 삼성점")
                 .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         Location secondInformation = Location.builder()
                 .name("카카오 프렌즈 강남점")
                 .coordinate(Coordinate.of(130.57066130083415, 36.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
                 .build();
         LocationInformation locationInformation = LocationInformation.builder()
                 .locationList(List.of(firstInformation, secondInformation))
                 .build();
 
         // when
-        List<String> result = locationInformation.findLocationName(1);
+        List<SearchResponse> result = locationInformation.findLocationName(1);
 
         // then
-        assertThat(result.get(0)).isEqualTo("카카오 프렌즈 삼성점");
+        assertThat(result.get(0).getName()).isEqualTo("카카오 프렌즈 삼성점");
         assertThat(result.size()).isEqualTo(1);
     }
 }

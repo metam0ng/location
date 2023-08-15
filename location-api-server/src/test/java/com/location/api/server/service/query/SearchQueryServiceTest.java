@@ -1,10 +1,10 @@
 package com.location.api.server.service.query;
 
 import com.location.api.server.domain.LocationInformation;
+import com.location.api.server.dto.response.SearchResponse;
 import com.location.api.server.infrastructure.LocationExternalFetcher;
 import com.location.api.server.infrastructure.LocationExternalFetcherImpl;
 import com.location.api.server.infrastructure.code.ExternalType;
-import com.location.api.server.service.query.SearchQueryService;
 import com.location.api.server.testsupport.service.FakeApplicationEventPublisher;
 import com.location.api.server.testsupport.service.FakeErrorRangeHolder;
 import com.location.api.server.testsupport.service.FakeLocationExternalClientKakaoFetcher;
@@ -43,7 +43,7 @@ class SearchQueryServiceTest {
         String keyword = "카카오";
 
         // when
-        List<String> result = searchQueryService.searchLocationByKeyword(keyword);
+        List<SearchResponse> result = searchQueryService.searchLocationByKeyword(keyword);
 
         // then
         assertThat(result).isNotEmpty();
@@ -55,7 +55,7 @@ class SearchQueryServiceTest {
         String keyword = "네이버";
 
         // when
-        List<String> result = searchQueryService.searchLocationByKeyword(keyword);
+        List<SearchResponse> result = searchQueryService.searchLocationByKeyword(keyword);
 
         // then
         assertThat(result).isNotEmpty();
@@ -67,13 +67,13 @@ class SearchQueryServiceTest {
         String keyword = "네이버";
 
         // when
-        List<String> result = searchQueryService.searchLocationByKeyword(keyword);
+        List<SearchResponse> result = searchQueryService.searchLocationByKeyword(keyword);
 
         // then
         assertThat(result).isNotEmpty();
         LocationInformation locationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER,"네이버", 5, 5);
         assertThat(result).isNotEmpty();
-        assertThat(result.get(0)).isEqualTo(locationInformation.get(0).getName());
+        assertThat(result.get(0).getName()).isEqualTo(locationInformation.get(0).getName());
 
     }
 
@@ -83,7 +83,7 @@ class SearchQueryServiceTest {
         String keyword = "카카오 프렌즈";
 
         // when
-        List<String> result = searchQueryService.searchLocationByKeyword(keyword);
+        List<SearchResponse> result = searchQueryService.searchLocationByKeyword(keyword);
 
         // then
         assertThat(result).isNotEmpty();

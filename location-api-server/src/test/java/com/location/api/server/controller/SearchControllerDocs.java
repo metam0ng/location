@@ -2,6 +2,7 @@ package com.location.api.server.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.location.api.server.dto.response.SearchResponse;
 import com.location.api.server.service.query.SearchQueryService;
 import com.location.api.server.testsupport.ApiDocTest;
 import com.location.api.server.testsupport.ApiDocumentFormatGenerator;
@@ -64,7 +65,11 @@ public class SearchControllerDocs {
     @DisplayName("keyword로 장소 조회")
     void docs01() throws Exception {
         // given
-        final List<String> response = List.of("카카오", "카카오 프렌즈");
+        final List<SearchResponse> response = List.of(SearchResponse.builder()
+                        .name("카카오")
+                        .address("경기 성남시 분당구 백현동 532")
+                        .roadAddress("경기 성남시 분당구 판교역로 166")
+                .build());
 
         given(queryService.searchLocationByKeyword(any())).willReturn(response);
 
@@ -85,7 +90,10 @@ public class SearchControllerDocs {
                 responseFields(
                         fieldWithPath("code").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description(ApiResponseCode.SUCCESS.getCode()),
                         fieldWithPath("message").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description(ApiResponseCode.SUCCESS.getDefaultMessage()),
-                        fieldWithPath("data[]").type(JsonFieldType.ARRAY).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("결과")
+                        fieldWithPath("data[]").type(JsonFieldType.ARRAY).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("결과"),
+                        fieldWithPath("data[].name").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("장소명"),
+                        fieldWithPath("data[].address").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("주소"),
+                        fieldWithPath("data[].roadAddress").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("도로명 주소")
                 )
         ));
 

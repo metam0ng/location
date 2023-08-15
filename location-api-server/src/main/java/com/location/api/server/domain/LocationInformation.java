@@ -1,5 +1,6 @@
 package com.location.api.server.domain;
 
+import com.location.api.server.dto.response.SearchResponse;
 import com.location.common.holder.ErrorRangeHolder;
 import com.location.external.client.spec.dto.LocationClientResponse;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class LocationInformation {
         return Location.builder()
                 .name(locationClientResponse.getName())
                 .coordinate(Coordinate.from(locationClientResponse.getCoordinateDto()))
+                .address(Address.from(locationClientResponse.getAddressDto()))
                 .build();
     }
 
@@ -61,9 +63,9 @@ public class LocationInformation {
     }
 
 
-    public List<String> findSameLocationAndRemove(LocationInformation naverLocationInformation,
-                                                  ErrorRangeHolder errorRangeHolder) {
-        List<String> result = new ArrayList<>();
+    public List<SearchResponse> findSameLocationAndRemove(LocationInformation naverLocationInformation,
+                                                          ErrorRangeHolder errorRangeHolder) {
+        List<SearchResponse> result = new ArrayList<>();
         List<Location> kakaoToRemove = new ArrayList<>();
         List<Location> naverToRemove = new ArrayList<>();
 
@@ -72,7 +74,7 @@ public class LocationInformation {
             Location kakaoInformation = this.locationList.get(i);
             for (Location naverInformation : naverLocationInformation.getAll()) {
                 if (kakaoInformation.isEquals(naverInformation, errorRangeHolder)) {
-                    result.add(kakaoInformation.getName());
+                    result.add(kakaoInformation.toResponse());
                     kakaoToRemove.add(kakaoInformation);
                     naverToRemove.add(naverInformation);
                 }
@@ -83,12 +85,12 @@ public class LocationInformation {
         return result;
     }
 
-    public List<String> findLocationName(int findCount) {
-        List<String> result = new ArrayList<>();
+    public List<SearchResponse> findLocationName(int findCount) {
+        List<SearchResponse> result = new ArrayList<>();
         if (isEmpty()) return result;
         int limit = Math.min(findCount, locationList.size());
         for (int i = 0; i < limit; i++) {
-            result.add(locationList.get(i).getName());
+            result.add(locationList.get(i).toResponse());
         }
         return result;
     }
@@ -97,7 +99,7 @@ public class LocationInformation {
         return this.locationList == null || this.locationList.isEmpty();
     }
 
-    public List<String> findLocationName() {
-        return this.locationList.stream().map(Location::getName).toList();
+    public List<SearchResponse> findLocationName() {
+        return this.locationList.stream().map(Location::toResponse).toList();
     }
 }
