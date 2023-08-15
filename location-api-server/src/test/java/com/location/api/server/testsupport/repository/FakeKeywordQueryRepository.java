@@ -1,7 +1,7 @@
 package com.location.api.server.testsupport.repository;
 
-import com.location.api.server.dto.response.KeywordResponse;
-import com.location.api.server.repository.query.KeywordQueryRepository;
+import com.location.api.server.keyword.dto.response.KeywordResponse;
+import com.location.api.server.keyword.repository.query.KeywordQueryRepository;
 
 import java.util.List;
 
