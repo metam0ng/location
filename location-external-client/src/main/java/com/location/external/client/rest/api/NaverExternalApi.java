@@ -1,6 +1,6 @@
 package com.location.external.client.rest.api;
 
-import com.location.external.client.config.LocationExternalRestTemplateProvider;
+import com.location.external.client.config.LocationExternalClientProperties;
 import com.location.external.client.rest.dto.response.naver.NaverLocationResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -12,16 +12,19 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class NaverExternalApi {
 
     private final RestTemplate restTemplate;
+    private final String HOST;
 
-    public NaverExternalApi(LocationExternalRestTemplateProvider restTemplateProvider) {
-        restTemplate = restTemplateProvider.getNaverMapRestTemplate();
+    public NaverExternalApi(RestTemplate naverRestTemplate,
+                            LocationExternalClientProperties properties) {
+        restTemplate = naverRestTemplate;
+        HOST = properties.getNaverUrl();
     }
 
     public NaverLocationResponse searchByKeword(String keyword,
                                                 int pageNumber,
                                                 int size) {
         // https://developers.naver.com/docs/serviceapi/search/local/local.md#%EC%A7%80%EC%97%AD
-        final String url = UriComponentsBuilder.fromPath("/v1/search/local.json")
+        final String url = UriComponentsBuilder.fromHttpUrl(HOST + "/v1/search/local.json")
                 .queryParam("query", keyword)
                 .queryParam("start", pageNumber)
                 .queryParam("display", size)

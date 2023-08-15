@@ -23,7 +23,7 @@ class NaverExternalApiTest {
         properties.setConnectTimeout(Duration.ofSeconds(2));
         properties.setReadTimeout(Duration.ofSeconds(5));
         LocationExternalRestTemplateProvider restTemplateProvider = new LocationExternalRestTemplateProvider(properties, null);
-        naverExternalApi = new NaverExternalApi(restTemplateProvider);
+        naverExternalApi = new NaverExternalApi(restTemplateProvider.getNaverMapRestTemplate(), properties);
     }
 
 

@@ -3,6 +3,7 @@ spring:
     include:
       - datasource
       - external-client
+      - circuitbreaker
   application:
     name: location-api
   mvc:

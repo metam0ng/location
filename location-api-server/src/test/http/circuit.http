@@ -1,0 +1,15 @@
+### circuit breaker 목록 조회
+GET http://localhost:8080/v1/locations/circuit/all
+Content-Type: application/json
+
+### circuit breaker 상태
+GET http://localhost:8080/v1/locations/circuit/status?name=dapi.kakao.com
+Content-Type: application/json
+
+### circuit breaker 닫기
+GET http://localhost:8080/v1/locations/circuit/close?name=dapi.kakao.com
+Content-Type: application/json
+
+### circuit breaker 열기
+GET http://localhost:8080/v1/locations/circuit/open?name=dapi.kakao.com
+Content-Type: application/json

@@ -39,7 +39,6 @@ public class LocationExternalRestTemplateProvider {
 
         kakaoMapRestTemplate =  new RestTemplateBuilder()
                 .messageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
-                .rootUri(properties.getKakaoUrl())
                 .setConnectTimeout(properties.getConnectTimeout())
                 .setReadTimeout(properties.getReadTimeout())
                 .interceptors(new KakaoExternalRestApiInterceptor())
@@ -47,7 +46,6 @@ public class LocationExternalRestTemplateProvider {
 
         naverMapRestTemplate =  new RestTemplateBuilder()
                 .messageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
-                .rootUri(properties.getNaverUrl())
                 .setConnectTimeout(properties.getConnectTimeout())
                 .setReadTimeout(properties.getReadTimeout())
                 .interceptors(new NaverExternalRestApiInterceptor())

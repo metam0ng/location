@@ -7,6 +7,7 @@ import org.springframework.cloud.sleuth.instrument.web.client.TraceRestTemplateC
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 
 @Slf4j
 @Configuration
@@ -21,9 +22,15 @@ public class LocationExternalClientConfig {
     static class LocationExternalRestClientConfig {
 
         @Bean
-        public LocationExternalRestTemplateProvider locationExternalRestTemplateProvider(LocationExternalClientProperties properties,
-                                                                                         TraceRestTemplateCustomizer restTemplateCustomizer) {
-            return new LocationExternalRestTemplateProvider(properties, restTemplateCustomizer);
+        public RestTemplate kakaoRestTemplate(LocationExternalClientProperties properties,
+                                              TraceRestTemplateCustomizer restTemplateCustomizer) {
+            return new LocationExternalRestTemplateProvider(properties, restTemplateCustomizer).getKakaoMapRestTemplate();
+        }
+
+        @Bean
+        public RestTemplate naverRestTemplate(LocationExternalClientProperties properties,
+                                              TraceRestTemplateCustomizer restTemplateCustomizer) {
+            return new LocationExternalRestTemplateProvider(properties, restTemplateCustomizer).getNaverMapRestTemplate();
         }
     }
 
