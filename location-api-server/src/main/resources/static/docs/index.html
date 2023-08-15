@@ -581,6 +581,24 @@ Host: location.api</code></pre>
 <td class="tableblock halign-left valign-top"></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">결과</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">장소명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].address</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주소</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].roadAddress</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">도로명 주소</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -590,12 +608,16 @@ Host: location.api</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 97
+Content-Length: 220
 
 {
   "code" : "2000",
   "message" : "success",
-  "data" : [ "카카오", "카카오 프렌즈" ]
+  "data" : [ {
+    "name" : "카카오",
+    "address" : "경기 성남시 분당구 백현동 532",
+    "roadAddress" : "경기 성남시 분당구 판교역로 166"
+  } ]
 }</code></pre>
 </div>
 </div>

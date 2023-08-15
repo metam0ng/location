@@ -1,5 +1,6 @@
 package com.location.api.server.domain;
 
+import com.location.api.server.dto.response.SearchResponse;
 import com.location.common.holder.ErrorRangeHolder;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,12 +10,15 @@ public class Location {
 
     private String name;
     private Coordinate coordinate;
+    private Address address;
 
     @Builder
     public Location(String name,
-                    Coordinate coordinate) {
+                    Coordinate coordinate,
+                    Address address) {
         this.name = name;
         this.coordinate = coordinate;
+        this.address = address;
     }
 
     public Double getX() {
@@ -28,5 +32,13 @@ public class Location {
     public boolean isEquals(Location location,
                             ErrorRangeHolder errorRangeHolder) {
         return this.coordinate.isEquals(location.coordinate, errorRangeHolder);
+    }
+
+    public SearchResponse toResponse() {
+        return SearchResponse.builder()
+                .name(this.name)
+                .address(this.address.getAddress())
+                .roadAddress(this.address.getRoadAddress())
+                .build();
     }
 }

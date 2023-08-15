@@ -1,6 +1,7 @@
 package com.location.api.server.service.query;
 
 import com.location.api.server.domain.LocationInformation;
+import com.location.api.server.dto.response.SearchResponse;
 import com.location.api.server.event.SearchEvent;
 import com.location.api.server.infrastructure.LocationExternalFetcher;
 import com.location.api.server.infrastructure.code.ExternalType;
@@ -26,18 +27,18 @@ public class SearchQueryService {
     private static final int NAVER_SIZE = 5;
 
 
-    public List<String> searchLocationByKeyword(String keyword) {
+    public List<SearchResponse> searchLocationByKeyword(String keyword) {
         String stripKeyword = keyword.strip();
         LocationInformation kakaoLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.KAKAO, stripKeyword, KAKAO_SIZE, TOTAL_SIZE);
         LocationInformation naverLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER, stripKeyword, NAVER_SIZE, TOTAL_SIZE);
-        List<String> results = mergeResults(kakaoLocationInformation, naverLocationInformation);
+        List<SearchResponse> results = mergeResults(kakaoLocationInformation, naverLocationInformation);
         applicationEventPublisher.publishEvent(new SearchEvent(this, stripKeyword));
         return results;
     }
 
-    private List<String> mergeResults(LocationInformation kakaoLocationInformation,
+    private List<SearchResponse> mergeResults(LocationInformation kakaoLocationInformation,
                                       LocationInformation naverLocationInformation) {
-        List<String> result = new ArrayList<>();
+        List<SearchResponse> result = new ArrayList<>();
         // 카카오 결과에 기반하여 먼저 추가
         result.addAll(kakaoLocationInformation.findSameLocationAndRemove(naverLocationInformation, errorRangeHolder));
         // 카카오에만 있는 결과 추가
