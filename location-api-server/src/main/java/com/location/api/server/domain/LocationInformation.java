@@ -1,0 +1,103 @@
+package com.location.api.server.domain;
+
+import com.location.external.client.spec.dto.LocationClientResponse;
+import lombok.Builder;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@ToString
+public class LocationInformation {
+
+    private List<Location> locationList;
+
+    @Builder
+    public LocationInformation(List<Location> locationList) {
+        this.locationList = locationList;
+    }
+
+    public static LocationInformation from(List<LocationClientResponse> responses) {
+        return new LocationInformation(responses.stream()
+                .map(LocationInformation::build)
+                .toList()
+        );
+    }
+
+    private static Location build(LocationClientResponse locationClientResponse) {
+        return Location.builder()
+                .name(locationClientResponse.getName())
+                .coordinate(Coordinate.from(locationClientResponse.getCoordinateDto()))
+                .build();
+    }
+
+
+    public int size() {
+        return this.locationList.size();
+    }
+
+    public Location get(int index) {
+        return this.locationList.get(index);
+    }
+
+
+    public List<String> getNames() {
+        return this.locationList.stream()
+                .map(Location::getName)
+                .toList();
+    }
+
+    public List<Location> getAll() {
+        return this.locationList;
+    }
+
+    public void remove(Location location) {
+        List<Location> updatedList = new ArrayList<>(this.locationList);
+        updatedList.remove(location);
+        this.locationList = updatedList;
+    }
+
+    public void remove(List<Location> locationList) {
+        locationList.forEach(this::remove);
+    }
+
+
+    public List<String> findSameLocationAndRemove(LocationInformation naverLocationInformation) {
+        List<String> result = new ArrayList<>();
+        List<Location> kakaoToRemove = new ArrayList<>();
+        List<Location> naverToRemove = new ArrayList<>();
+
+        for (int i = 0; i < this.size(); i++) {
+            if (i == 5) break;
+            Location kakaoInformation = this.locationList.get(i);
+            for (Location naverInformation : naverLocationInformation.getAll()) {
+                if (kakaoInformation.isEquals(naverInformation)) {
+                    result.add(kakaoInformation.getName());
+                    kakaoToRemove.add(kakaoInformation);
+                    naverToRemove.add(naverInformation);
+                }
+            }
+        }
+        remove(kakaoToRemove);
+        naverLocationInformation.remove(naverToRemove);
+        return result;
+    }
+
+    public List<String> findLocationName(int findCount) {
+        List<String> result = new ArrayList<>();
+        if (isEmpty()) return result;
+        int limit = Math.min(findCount, locationList.size());
+        for (int i = 0; i < limit; i++) {
+            result.add(locationList.get(i).getName());
+        }
+        return result;
+    }
+
+    public boolean isEmpty() {
+        return this.locationList == null || this.locationList.isEmpty();
+    }
+
+    public List<String> findLocationName() {
+        return this.locationList.stream().map(Location::getName).toList();
+    }
+}

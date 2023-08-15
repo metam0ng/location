@@ -1,8 +1,8 @@
 package com.location.api.server.infrastructure;
 
+import com.location.api.server.domain.LocationInformation;
+import com.location.api.server.infrastructure.code.ExternalType;
 import com.location.external.client.spec.LocationExternalClientFetcher;
-import com.location.external.client.spec.code.ExternalType;
-import com.location.external.client.spec.dto.LocationInformations;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -16,12 +16,11 @@ public class LocationExternalFetcherImpl implements LocationExternalFetcher{
 
 
     @Override
-    public LocationInformations searchLocationByKeyword(ExternalType externalType,
-                                                        String keyword,
-                                                        int pageSize,
-                                                        int totalSize) {
-        // todo. 하드코딩 enum으로 대체, externalType도 다른 enum으로 교체, locationInformations 교체
-        LocationExternalClientFetcher locationExternalClientFetcher = externalClientFetchers.stream().filter(fetcher -> fetcher.isSupport(externalType)).findFirst().get();
-        return locationExternalClientFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
+    public LocationInformation searchLocationByKeyword(ExternalType externalType,
+                                                       String keyword,
+                                                       int pageSize,
+                                                       int totalSize) {
+        LocationExternalClientFetcher locationExternalClientFetcher = externalClientFetchers.stream().filter(fetcher -> fetcher.isSupport(externalType.getApiType())).findFirst().get();
+        return LocationInformation.from(locationExternalClientFetcher.searchLocationByKeyword(keyword, pageSize, totalSize));
     }
 }

@@ -1,14 +1,16 @@
 package com.location.external.client.spec;
 
-import com.location.external.client.spec.code.ExternalType;
-import com.location.external.client.spec.dto.LocationInformations;
+import com.location.external.client.spec.code.ApiType;
+import com.location.external.client.spec.dto.LocationClientResponse;
+
+import java.util.List;
 
 public interface LocationExternalClientFetcher {
 
-    boolean isSupport(ExternalType externalType);
+    boolean isSupport(ApiType apiType);
 
-    LocationInformations searchLocationByKeyword(String keyword,
-                                                 int pageSize,
-                                                 int totalSize);
+    List<LocationClientResponse> searchLocationByKeyword(String keyword,
+                                                         int pageSize,
+                                                         int totalSize);
 
 }

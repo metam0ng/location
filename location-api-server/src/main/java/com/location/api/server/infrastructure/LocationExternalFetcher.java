@@ -1,12 +1,12 @@
 package com.location.api.server.infrastructure;
 
-import com.location.external.client.spec.code.ExternalType;
-import com.location.external.client.spec.dto.LocationInformations;
+import com.location.api.server.domain.LocationInformation;
+import com.location.api.server.infrastructure.code.ExternalType;
 
 public interface LocationExternalFetcher {
 
-    LocationInformations searchLocationByKeyword(ExternalType externalType,
-                                                 String keyword,
-                                                 int pageSize,
-                                                 int totalSize);
+    LocationInformation searchLocationByKeyword(ExternalType externalType,
+                                                String keyword,
+                                                int pageSize,
+                                                int totalSize);
 }

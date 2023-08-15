@@ -1,13 +1,14 @@
 package com.location.api.server.service;
 
+import com.location.api.server.domain.LocationInformation;
 import com.location.api.server.infrastructure.LocationExternalFetcher;
 import com.location.api.server.infrastructure.LocationExternalFetcherImpl;
+import com.location.api.server.infrastructure.code.ExternalType;
 import com.location.api.server.service.query.SearchQueryService;
 import com.location.api.server.testsupport.service.FakeApplicationEventPublisher;
 import com.location.api.server.testsupport.service.LocationExternalClientKakaoTestFetcher;
 import com.location.api.server.testsupport.service.LocationExternalClientNaverTestFetcher;
 import com.location.external.client.spec.LocationExternalClientFetcher;
-import com.location.external.client.spec.dto.LocationInformations;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationEventPublisher;
@@ -19,15 +20,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SearchQueryServiceTest {
 
     private SearchQueryService searchQueryService;
-    private LocationExternalClientKakaoTestFetcher locationExternalClientKakaoTestFetcher;
-    private LocationExternalClientNaverTestFetcher locationExternalClientNaverTestFetcher;
+
+    private LocationExternalFetcher locationExternalFetcher;
 
     @BeforeEach
     void setUp() {
-        locationExternalClientKakaoTestFetcher = new LocationExternalClientKakaoTestFetcher();
-        locationExternalClientNaverTestFetcher = new LocationExternalClientNaverTestFetcher();
+        LocationExternalClientKakaoTestFetcher locationExternalClientKakaoTestFetcher = new LocationExternalClientKakaoTestFetcher();
+        LocationExternalClientNaverTestFetcher locationExternalClientNaverTestFetcher = new LocationExternalClientNaverTestFetcher();
         List<LocationExternalClientFetcher> locationExternalClientFetcher = List.of(locationExternalClientKakaoTestFetcher, locationExternalClientNaverTestFetcher);
-        LocationExternalFetcher locationExternalFetcher = new LocationExternalFetcherImpl(locationExternalClientFetcher);
+        locationExternalFetcher = new LocationExternalFetcherImpl(locationExternalClientFetcher);
         ApplicationEventPublisher applicationEventPublisher = new FakeApplicationEventPublisher();
         searchQueryService = new SearchQueryService(locationExternalFetcher, applicationEventPublisher);
     }
@@ -66,9 +67,9 @@ class SearchQueryServiceTest {
 
         // then
         assertThat(result).isNotEmpty();
-        LocationInformations locationInformations = locationExternalClientKakaoTestFetcher.searchLocationByKeyword("네이버", 5, 5);
+        LocationInformation locationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER,"네이버", 5, 5);
         assertThat(result).isNotEmpty();
-        assertThat(result.get(0)).isEqualTo(locationInformations.get(0).getName());
+        assertThat(result.get(0)).isEqualTo(locationInformation.get(0).getName());
 
     }
 

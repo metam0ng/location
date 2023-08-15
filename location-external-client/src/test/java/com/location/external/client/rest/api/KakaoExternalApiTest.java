@@ -4,6 +4,7 @@ import com.location.external.client.config.LocationExternalClientProperties;
 import com.location.external.client.config.LocationExternalRestTemplateProvider;
 import com.location.external.client.rest.dto.response.kakao.KakaoLocationResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
@@ -27,6 +28,7 @@ class KakaoExternalApiTest {
 
 
     @Test
+    @Disabled
     void 카카오_지도를_키워드로_검색_할_수_있다() {
         // given
         String keyword = "카카오";

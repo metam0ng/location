@@ -1,5 +1,6 @@
-package com.location.external.client.spec.dto;
+package com.location.api.server.domain;
 
+import com.location.external.client.spec.dto.CoordinateDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -21,6 +22,13 @@ public class Coordinate {
         return Coordinate.builder()
                 .x(x)
                 .y(y)
+                .build();
+    }
+
+    public static Coordinate from(CoordinateDto coordinateDto) {
+        return Coordinate.builder()
+                .x(coordinateDto.getX())
+                .y(coordinateDto.getY())
                 .build();
     }
 
