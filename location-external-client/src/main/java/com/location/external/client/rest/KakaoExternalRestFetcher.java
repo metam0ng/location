@@ -1,6 +1,5 @@
 package com.location.external.client.rest;
 
-import com.location.common.annotation.RetryAfterThrowException;
 import com.location.external.client.rest.api.KakaoExternalApi;
 import com.location.external.client.rest.dto.response.kakao.KakaoLocationResponse;
 import com.location.external.client.spec.LocationExternalClientFetcher;
@@ -24,7 +23,6 @@ public class KakaoExternalRestFetcher implements LocationExternalClientFetcher {
     }
 
     @Override
-    @RetryAfterThrowException
     public List<LocationClientResponse> searchLocationByKeyword(String keyword,
                                                                 int pageSize,
                                                                 int totalSize) {

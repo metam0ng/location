@@ -14,6 +14,7 @@ public class RetryApplyAspect {
 
     @Around("@annotation(retry)")
     public Object doRetry(ProceedingJoinPoint joinPoint, Retry retry) throws Throwable {
+        log.info("===============================retry1===========================");
         int maxRetry = retry.value();
         for (int retryCount = 1; retryCount <= maxRetry; retryCount++) {
             try {

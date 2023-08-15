@@ -23,7 +23,7 @@ class KakaoExternalApiTest {
         properties.setConnectTimeout(Duration.ofSeconds(2));
         properties.setReadTimeout(Duration.ofSeconds(5));
         LocationExternalRestTemplateProvider restTemplateProvider = new LocationExternalRestTemplateProvider(properties, null);
-        kakaoExternalApi = new KakaoExternalApi(restTemplateProvider);
+        kakaoExternalApi = new KakaoExternalApi(restTemplateProvider.getKakaoMapRestTemplate(), properties);
     }
 
 

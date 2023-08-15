@@ -1,6 +1,5 @@
 package com.location.external.client.stub;
 
-import com.location.common.annotation.RetryAfterThrowException;
 import com.location.external.client.spec.LocationExternalClientFetcher;
 import com.location.external.client.spec.code.ApiType;
 import com.location.external.client.spec.dto.CoordinateDto;
@@ -20,7 +19,6 @@ public class NaverExternalStubFetcher implements LocationExternalClientFetcher {
     }
 
     @Override
-    @RetryAfterThrowException
     public List<LocationClientResponse> searchLocationByKeyword(String userId,
                                                                 int pageSize,
                                                                 int totalSize) {
