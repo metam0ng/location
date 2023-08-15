@@ -6,10 +6,10 @@ import com.location.api.server.infrastructure.LocationExternalFetcher;
 import com.location.api.server.infrastructure.LocationExternalFetcherImpl;
 import com.location.api.server.infrastructure.code.ExternalType;
 import com.location.api.server.testsupport.service.FakeApplicationEventPublisher;
-import com.location.api.server.testsupport.service.FakeErrorRangeHolder;
+import com.location.api.server.testsupport.service.FakeCooridinateErrorRangeHolder;
 import com.location.api.server.testsupport.service.FakeLocationExternalClientKakaoFetcher;
 import com.location.api.server.testsupport.service.FakeLocationExternalClientNaverFetcher;
-import com.location.common.holder.ErrorRangeHolder;
+import com.location.common.holder.CooridinateErrorRangeHolder;
 import com.location.external.client.spec.LocationExternalClientFetcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,20 +21,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class SearchQueryServiceTest {
 
-    private ErrorRangeHolder errorRangeHolder;
+    private CooridinateErrorRangeHolder cooridinateErrorRangeHolder;
     private SearchQueryService searchQueryService;
     private LocationExternalFetcher locationExternalFetcher;
 
 
     @BeforeEach
     void setUp() {
-        errorRangeHolder = new FakeErrorRangeHolder();
+        cooridinateErrorRangeHolder = new FakeCooridinateErrorRangeHolder();
         FakeLocationExternalClientKakaoFetcher fakeLocationExternalClientKakaoFetcher = new FakeLocationExternalClientKakaoFetcher();
         FakeLocationExternalClientNaverFetcher fakeLocationExternalClientNaverFetcher = new FakeLocationExternalClientNaverFetcher();
         List<LocationExternalClientFetcher> locationExternalClientFetcher = List.of(fakeLocationExternalClientKakaoFetcher, fakeLocationExternalClientNaverFetcher);
         locationExternalFetcher = new LocationExternalFetcherImpl(locationExternalClientFetcher);
         ApplicationEventPublisher applicationEventPublisher = new FakeApplicationEventPublisher();
-        searchQueryService = new SearchQueryService(errorRangeHolder, locationExternalFetcher, applicationEventPublisher);
+        searchQueryService = new SearchQueryService(cooridinateErrorRangeHolder, locationExternalFetcher, applicationEventPublisher);
     }
 
     @Test

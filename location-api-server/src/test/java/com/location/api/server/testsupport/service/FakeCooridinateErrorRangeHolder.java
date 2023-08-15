@@ -1,10 +1,10 @@
 package com.location.api.server.testsupport.service;
 
-import com.location.common.holder.ErrorRangeHolder;
+import com.location.common.holder.CooridinateErrorRangeHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FakeErrorRangeHolder implements ErrorRangeHolder {
+public class FakeCooridinateErrorRangeHolder implements CooridinateErrorRangeHolder {
     @Override
     public double errorRange() {
         return 0.0001;

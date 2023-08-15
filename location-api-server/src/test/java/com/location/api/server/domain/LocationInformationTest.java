@@ -1,7 +1,7 @@
 package com.location.api.server.domain;
 
 import com.location.api.server.dto.response.SearchResponse;
-import com.location.api.server.testsupport.service.FakeErrorRangeHolder;
+import com.location.api.server.testsupport.service.FakeCooridinateErrorRangeHolder;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -136,13 +136,40 @@ class LocationInformationTest {
                 .build();
 
         // when
-        List<SearchResponse> result = firstInformations.findSameLocationAndRemove(secondInformations, new FakeErrorRangeHolder());
+        List<SearchResponse> result = firstInformations.findCountLocationAndRemove(secondInformations, new FakeCooridinateErrorRangeHolder());
 
         //then
         assertThat(result.get(0).getName()).isEqualTo("카카오 프렌즈 삼성점");
         assertThat(firstInformations.isEmpty()).isTrue();
     }
 
+
+    @Test
+    void LocationInformation_장소를_count_수_만큼_찾고_대상을_제거한다() {
+        // given
+        Location firstInformation = Location.builder()
+                .name("카카오 프렌즈 삼성점")
+                .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
+                .build();
+
+        Location secondInformation = Location.builder()
+                .name("카카오 프렌즈 삼성점")
+                .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
+                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
+                .build();
+
+        LocationInformation locationInformation = LocationInformation.builder()
+                .locationList(List.of(firstInformation, secondInformation))
+                .build();
+
+        // when
+        List<SearchResponse> result = locationInformation.findCountLocationAndRemove(1);
+
+        //then
+        assertThat(result.get(0).getName()).isEqualTo("카카오 프렌즈 삼성점");
+        assertThat(locationInformation.size()).isEqualTo(1);
+    }
     @Test
     void 모든_LocationInformation의_장소를_찾을_수_있다() {
         // given
@@ -161,7 +188,7 @@ class LocationInformationTest {
                 .build();
 
         // when
-        List<SearchResponse> result = locationInformation.findLocationName();
+        List<SearchResponse> result = locationInformation.findLocation();
 
         // then
         assertThat(result.get(0).getName()).isEqualTo("카카오 프렌즈 삼성점");
@@ -169,28 +196,4 @@ class LocationInformationTest {
         assertThat(result.size()).isEqualTo(2);
     }
 
-    @Test
-    void count수_만큼_LocationInformation의_장소를_찾을_수_있다() {
-        // given
-        Location firstInformation = Location.builder()
-                .name("카카오 프렌즈 삼성점")
-                .coordinate(Coordinate.of(129.57066130083415, 33.450682729588145))
-                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
-                .build();
-        Location secondInformation = Location.builder()
-                .name("카카오 프렌즈 강남점")
-                .coordinate(Coordinate.of(130.57066130083415, 36.450682729588145))
-                .address(Address.builder().address("경기 성남시 분당구 백현동 ").roadAddress("경기 성남시 분당구 판교역로 166").build())
-                .build();
-        LocationInformation locationInformation = LocationInformation.builder()
-                .locationList(List.of(firstInformation, secondInformation))
-                .build();
-
-        // when
-        List<SearchResponse> result = locationInformation.findLocationName(1);
-
-        // then
-        assertThat(result.get(0).getName()).isEqualTo("카카오 프렌즈 삼성점");
-        assertThat(result.size()).isEqualTo(1);
-    }
 }

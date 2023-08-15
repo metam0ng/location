@@ -5,7 +5,7 @@ import com.location.api.server.dto.response.SearchResponse;
 import com.location.api.server.event.SearchEvent;
 import com.location.api.server.infrastructure.LocationExternalFetcher;
 import com.location.api.server.infrastructure.code.ExternalType;
-import com.location.common.holder.ErrorRangeHolder;
+import com.location.common.holder.CooridinateErrorRangeHolder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchQueryService {
 
-    private final ErrorRangeHolder errorRangeHolder;
+    private final CooridinateErrorRangeHolder cooridinateErrorRangeHolder;
     private final LocationExternalFetcher locationExternalFetcher;
     private final ApplicationEventPublisher applicationEventPublisher;
     private static final int TOTAL_SIZE = 10;
@@ -37,19 +37,15 @@ public class SearchQueryService {
     }
 
     private List<SearchResponse> mergeResults(LocationInformation kakaoLocationInformation,
-                                      LocationInformation naverLocationInformation) {
+                                              LocationInformation naverLocationInformation) {
         List<SearchResponse> result = new ArrayList<>();
         // 카카오 결과에 기반하여 먼저 추가
-        result.addAll(kakaoLocationInformation.findSameLocationAndRemove(naverLocationInformation, errorRangeHolder));
+        result.addAll(kakaoLocationInformation.findCountLocationAndRemove(naverLocationInformation, cooridinateErrorRangeHolder));
         // 카카오에만 있는 결과 추가
         int findKakaoCount = 10 - result.size() - naverLocationInformation.size();
-        result.addAll(kakaoLocationInformation.findLocationName(findKakaoCount));
+        result.addAll(kakaoLocationInformation.findCountLocationAndRemove(findKakaoCount));
         // 네이버에만 있는 결과 추가
-        result.addAll(naverLocationInformation.findLocationName());
-        // 나머지 부족한 10개 맞추기
-        int leftCount = 10 - result.size();
-        result.addAll(kakaoLocationInformation.findLocationName(leftCount));
-
+        result.addAll(naverLocationInformation.findLocation());
         return result;
     }
 }

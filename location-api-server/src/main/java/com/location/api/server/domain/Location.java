@@ -1,7 +1,7 @@
 package com.location.api.server.domain;
 
 import com.location.api.server.dto.response.SearchResponse;
-import com.location.common.holder.ErrorRangeHolder;
+import com.location.common.holder.CooridinateErrorRangeHolder;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -30,8 +30,8 @@ public class Location {
     }
 
     public boolean isEquals(Location location,
-                            ErrorRangeHolder errorRangeHolder) {
-        return this.coordinate.isEquals(location.coordinate, errorRangeHolder);
+                            CooridinateErrorRangeHolder cooridinateErrorRangeHolder) {
+        return this.coordinate.isEquals(location.coordinate, cooridinateErrorRangeHolder);
     }
 
     public SearchResponse toResponse() {

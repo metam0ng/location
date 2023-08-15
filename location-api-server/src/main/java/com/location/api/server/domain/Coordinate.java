@@ -1,6 +1,6 @@
 package com.location.api.server.domain;
 
-import com.location.common.holder.ErrorRangeHolder;
+import com.location.common.holder.CooridinateErrorRangeHolder;
 import com.location.external.client.spec.dto.CoordinateDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,9 +34,9 @@ public class Coordinate {
     }
 
     public boolean isEquals(Coordinate target,
-                            ErrorRangeHolder errorRangeHolder) {
+                            CooridinateErrorRangeHolder cooridinateErrorRangeHolder) {
         // 좌표 비교
-        return !(Math.abs(this.x - target.getX()) > errorRangeHolder.errorRange()) &&
-                !(Math.abs(this.y - target.getY()) > errorRangeHolder.errorRange());
+        return !(Math.abs(this.x - target.getX()) > cooridinateErrorRangeHolder.errorRange()) &&
+                !(Math.abs(this.y - target.getY()) > cooridinateErrorRangeHolder.errorRange());
     }
 }
