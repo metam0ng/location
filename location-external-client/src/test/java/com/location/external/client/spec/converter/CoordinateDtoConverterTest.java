@@ -1,12 +1,12 @@
 package com.location.external.client.spec.converter;
 
 import com.location.external.client.rest.converter.CoordinateConverter;
-import com.location.external.client.spec.dto.Coordinate;
+import com.location.external.client.spec.dto.CoordinateDto;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CoordinateConverterTest {
+public class CoordinateDtoConverterTest {
 
     @Test
     void KATECH좌표를_Longitude로_변환_할_수_있다() {
@@ -18,9 +18,9 @@ public class CoordinateConverterTest {
         Double resultY = 37.5635252637636;
         // when
         CoordinateConverter coordinateConverter = new CoordinateConverter();
-        Coordinate coordinate = coordinateConverter.convertKATECHToLongitude(x, y);
-        Double approximationX = Math.abs(resultX - coordinate.getX());
-        Double approximationY = Math.abs(resultY - coordinate.getY());
+        CoordinateDto coordinateDto = coordinateConverter.convertKATECHToLongitude(x, y);
+        Double approximationX = Math.abs(resultX - coordinateDto.getX());
+        Double approximationY = Math.abs(resultY - coordinateDto.getY());
 
         // then
         assertThat(approximationX < 0.0001).isTrue();

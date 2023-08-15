@@ -5,8 +5,8 @@ import com.location.external.client.rest.dto.response.kakao.KaKaoLocationDocumen
 import com.location.external.client.rest.dto.response.kakao.KaKaoLocationMeta;
 import com.location.external.client.rest.dto.response.kakao.KaKaoLocationSameName;
 import com.location.external.client.rest.dto.response.kakao.KakaoLocationResponse;
-import com.location.external.client.spec.code.ExternalType;
-import com.location.external.client.spec.dto.LocationInformations;
+import com.location.external.client.spec.code.ApiType;
+import com.location.external.client.spec.dto.LocationClientResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -31,7 +31,7 @@ class KakaoExternalRestFetcherTest {
     @Test
     void ExternalType의_KAKAO를_지원한다() {
         // given
-        ExternalType type = ExternalType.KAKAO;
+        ApiType type = ApiType.KAKAO;
 
         // when
         boolean result = kakaoExternalRestFetcher.isSupport(type);
@@ -43,7 +43,7 @@ class KakaoExternalRestFetcherTest {
     @Test
     void ExternalType의_NAVER를_지원하지_않는다() {
         // given
-        ExternalType type = ExternalType.NAVER;
+        ApiType type = ApiType.NAVER;
 
         // when
         boolean result = kakaoExternalRestFetcher.isSupport(type);
@@ -93,7 +93,7 @@ class KakaoExternalRestFetcherTest {
         given(kakaoExternalApi.searchByKeword(any(), any(Integer.class), any(Integer.class))).willReturn(response);
 
         // when
-        LocationInformations result = kakaoExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
+        List<LocationClientResponse> result = kakaoExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
 
         // then
         assertThat(result.size()).isEqualTo(response.getDocuments().size());
@@ -159,7 +159,7 @@ class KakaoExternalRestFetcherTest {
         given(kakaoExternalApi.searchByKeword(any(), any(Integer.class), any(Integer.class))).willReturn(firstResponse).willReturn(secondResponse);
 
         // when
-        LocationInformations result = kakaoExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
+        List<LocationClientResponse> result = kakaoExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
 
         // then
         assertThat(result.size()).isEqualTo(totalSize);
@@ -225,7 +225,7 @@ class KakaoExternalRestFetcherTest {
         given(kakaoExternalApi.searchByKeword(any(), any(Integer.class), any(Integer.class))).willReturn(firstResponse).willReturn(secondResponse);
 
         // when
-        LocationInformations result = kakaoExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
+        List<LocationClientResponse> result = kakaoExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
 
         // then
         assertThat(result.size()).isEqualTo(totalSize);

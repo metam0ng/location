@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class LocationInformationTest {
+class LocationClientResponseTest {
 
     @Test
-    void KaKaoLocationDocument가_LocationInformation로_변환_된다() {
+    void KaKaoLocationDocument가_LocationClientResponse로_변환_된다() {
         // given
         String name = "카카오프렌즈 코엑스점";
         KaKaoLocationDocument kaKaoLocationDocument = KaKaoLocationDocument.builder()
@@ -29,7 +29,7 @@ class LocationInformationTest {
                 .build();
 
         // when
-        LocationInformation result = LocationInformation.fromKakao(kaKaoLocationDocument);
+        LocationClientResponse result = LocationClientResponse.fromKakao(kaKaoLocationDocument);
 
         // then
         assertThat(result.getName()).isEqualTo(name);
@@ -38,7 +38,7 @@ class LocationInformationTest {
     }
 
     @Test
-    void NaverLocationItem이_LocationInformation로_변환_된다() {
+    void NaverLocationItem이_LocationClientResponse로_변환_된다() {
         // given
         String title = "카카오프렌즈 롯데영플라자 명동점";
         NaverLocationItem naverLocationItem = NaverLocationItem.builder()
@@ -53,7 +53,7 @@ class LocationInformationTest {
                 .build();
 
         // when
-        LocationInformation result = LocationInformation.fromNaver(naverLocationItem, new CoordinateConverter());
+        LocationClientResponse result = LocationClientResponse.fromNaver(naverLocationItem, new CoordinateConverter());
 
         // then
         assertThat(result.getName()).isEqualTo(title);

@@ -4,8 +4,8 @@ import com.location.external.client.rest.api.NaverExternalApi;
 import com.location.external.client.rest.converter.CoordinateConverter;
 import com.location.external.client.rest.dto.response.naver.NaverLocationItem;
 import com.location.external.client.rest.dto.response.naver.NaverLocationResponse;
-import com.location.external.client.spec.code.ExternalType;
-import com.location.external.client.spec.dto.LocationInformations;
+import com.location.external.client.spec.code.ApiType;
+import com.location.external.client.spec.dto.LocationClientResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,7 +36,7 @@ class NaverExternalRestFetcherTest {
     @Test
     void ExternalType의_NAVER를_지원한다() {
         // given
-        ExternalType type = ExternalType.NAVER;
+        ApiType type = ApiType.NAVER;
 
         // when
         boolean result = naverExternalRestFetcher.isSupport(type);
@@ -48,7 +48,7 @@ class NaverExternalRestFetcherTest {
     @Test
     void ExternalType의_KAKAO를_지원하지_않는다() {
         // given
-        ExternalType type = ExternalType.KAKAO;
+        ApiType type = ApiType.KAKAO;
 
         // when
         boolean result = naverExternalRestFetcher.isSupport(type);
@@ -85,7 +85,7 @@ class NaverExternalRestFetcherTest {
         given(naverExternalApi.searchByKeword(any(), any(Integer.class), any(Integer.class))).willReturn(response);
 
         // when
-        LocationInformations result = naverExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
+        List<LocationClientResponse> result = naverExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
 
         // then
         assertThat(result.size()).isEqualTo(response.getNaverLocationItems().size());
@@ -135,7 +135,7 @@ class NaverExternalRestFetcherTest {
         given(naverExternalApi.searchByKeword(any(), any(Integer.class), any(Integer.class))).willReturn(firstResponse).willReturn(secondResponse);
 
         // when
-        LocationInformations result = naverExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
+        List<LocationClientResponse> result = naverExternalRestFetcher.searchLocationByKeyword(keyword, pageSize, totalSize);
 
         // then
         assertThat(result.size()).isEqualTo(totalSize);

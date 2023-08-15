@@ -1,10 +1,9 @@
 package com.location.external.client.stub;
 
 import com.location.external.client.spec.LocationExternalClientFetcher;
-import com.location.external.client.spec.code.ExternalType;
-import com.location.external.client.spec.dto.Coordinate;
-import com.location.external.client.spec.dto.LocationInformation;
-import com.location.external.client.spec.dto.LocationInformations;
+import com.location.external.client.spec.code.ApiType;
+import com.location.external.client.spec.dto.CoordinateDto;
+import com.location.external.client.spec.dto.LocationClientResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,18 +14,18 @@ import java.util.List;
 public class KakaoExternalStubFetcher implements LocationExternalClientFetcher {
 
     @Override
-    public boolean isSupport(ExternalType externalType) {
-        return ExternalType.KAKAO == externalType;
+    public boolean isSupport(ApiType apiType) {
+        return ApiType.KAKAO == apiType;
     }
 
     @Override
-    public LocationInformations searchLocationByKeyword(String keyword,
-                                                        int pageSize,
-                                                        int totalSize) {
-        return LocationInformations.from(List.of(LocationInformation.builder()
+    public List<LocationClientResponse> searchLocationByKeyword(String keyword,
+                                                                int pageSize,
+                                                                int totalSize) {
+        return List.of(LocationClientResponse.builder()
                 .name("카카오프렌즈 코엑스점")
-                .coordinate(Coordinate.of(126.981682046205, 37.5635252637636))
-                .build()));
+                .coordinateDto(CoordinateDto.of(126.981682046205, 37.5635252637636))
+                .build());
     }
 
 
