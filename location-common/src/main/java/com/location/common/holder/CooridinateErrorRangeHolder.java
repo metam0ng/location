@@ -1,6 +1,6 @@
 package com.location.common.holder;
 
-public interface ErrorRangeHolder {
+public interface CooridinateErrorRangeHolder {
 
     double errorRange();
 

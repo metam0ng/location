@@ -1,6 +1,6 @@
 package com.location.api.server.domain;
 
-import com.location.api.server.testsupport.service.FakeErrorRangeHolder;
+import com.location.api.server.testsupport.service.FakeCooridinateErrorRangeHolder;
 import com.location.external.client.spec.dto.CoordinateDto;
 import org.junit.jupiter.api.Test;
 
@@ -63,7 +63,7 @@ class CoordinateTest {
                 .build();
 
         // when
-        boolean result = first.isEquals(second, new FakeErrorRangeHolder());
+        boolean result = first.isEquals(second, new FakeCooridinateErrorRangeHolder());
 
         // then
         assertThat(result).isTrue();
@@ -89,7 +89,7 @@ class CoordinateTest {
                 .build();
 
         // when
-        boolean result = first.isEquals(second, new FakeErrorRangeHolder());
+        boolean result = first.isEquals(second, new FakeCooridinateErrorRangeHolder());
 
         // then
         assertThat(result).isFalse();
@@ -115,7 +115,7 @@ class CoordinateTest {
                 .build();
 
         // when
-        boolean result = first.isEquals(second, new FakeErrorRangeHolder());
+        boolean result = first.isEquals(second, new FakeCooridinateErrorRangeHolder());
 
         // then
         assertThat(result).isFalse();
@@ -141,7 +141,7 @@ class CoordinateTest {
                 .build();
 
         // when
-        boolean result = first.isEquals(second, new FakeErrorRangeHolder());
+        boolean result = first.isEquals(second, new FakeCooridinateErrorRangeHolder());
 
         // then
         assertThat(result).isFalse();

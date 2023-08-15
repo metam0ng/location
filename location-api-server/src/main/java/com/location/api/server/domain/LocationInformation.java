@@ -1,7 +1,7 @@
 package com.location.api.server.domain;
 
 import com.location.api.server.dto.response.SearchResponse;
-import com.location.common.holder.ErrorRangeHolder;
+import com.location.common.holder.CooridinateErrorRangeHolder;
 import com.location.external.client.spec.dto.LocationClientResponse;
 import lombok.Builder;
 
@@ -41,15 +41,18 @@ public class LocationInformation {
         return this.locationList.get(index);
     }
 
+    public boolean isEmpty() {
+        return this.locationList == null || this.locationList.isEmpty();
+    }
+
+    public List<Location> getAll() {
+        return this.locationList;
+    }
 
     public List<String> getNames() {
         return this.locationList.stream()
                 .map(Location::getName)
                 .toList();
-    }
-
-    public List<Location> getAll() {
-        return this.locationList;
     }
 
     public void remove(Location location) {
@@ -63,8 +66,8 @@ public class LocationInformation {
     }
 
 
-    public List<SearchResponse> findSameLocationAndRemove(LocationInformation naverLocationInformation,
-                                                          ErrorRangeHolder errorRangeHolder) {
+    public List<SearchResponse> findCountLocationAndRemove(LocationInformation naverLocationInformation,
+                                                           CooridinateErrorRangeHolder cooridinateErrorRangeHolder) {
         List<SearchResponse> result = new ArrayList<>();
         List<Location> kakaoToRemove = new ArrayList<>();
         List<Location> naverToRemove = new ArrayList<>();
@@ -73,7 +76,7 @@ public class LocationInformation {
             if (i == 5) break;
             Location kakaoInformation = this.locationList.get(i);
             for (Location naverInformation : naverLocationInformation.getAll()) {
-                if (kakaoInformation.isEquals(naverInformation, errorRangeHolder)) {
+                if (kakaoInformation.isEquals(naverInformation, cooridinateErrorRangeHolder)) {
                     result.add(kakaoInformation.toResponse());
                     kakaoToRemove.add(kakaoInformation);
                     naverToRemove.add(naverInformation);
@@ -85,21 +88,21 @@ public class LocationInformation {
         return result;
     }
 
-    public List<SearchResponse> findLocationName(int findCount) {
+    public List<SearchResponse> findCountLocationAndRemove(int findCount) {
         List<SearchResponse> result = new ArrayList<>();
+        List<Location> toRemove = new ArrayList<>();
+
         if (isEmpty()) return result;
-        int limit = Math.min(findCount, locationList.size());
-        for (int i = 0; i < limit; i++) {
+        for (int i = 0; i < Math.min(findCount, locationList.size()); i++) {
             result.add(locationList.get(i).toResponse());
+            toRemove.add(locationList.get(i));
         }
+        remove(toRemove);
+
         return result;
     }
 
-    public boolean isEmpty() {
-        return this.locationList == null || this.locationList.isEmpty();
-    }
-
-    public List<SearchResponse> findLocationName() {
+    public List<SearchResponse> findLocation() {
         return this.locationList.stream().map(Location::toResponse).toList();
     }
 }
