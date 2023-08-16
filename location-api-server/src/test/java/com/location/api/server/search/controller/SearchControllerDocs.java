@@ -3,7 +3,6 @@ package com.location.api.server.search.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.location.api.server.search.dto.response.SearchResponse;
-import com.location.api.server.search.controller.SearchController;
 import com.location.api.server.search.service.query.SearchQueryService;
 import com.location.api.server.testsupport.ApiDocTest;
 import com.location.api.server.testsupport.ApiDocumentFormatGenerator;
@@ -33,6 +32,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -86,7 +86,7 @@ public class SearchControllerDocs {
                 ApiDocumentsUtil.getDocumentRequest(),
                 ApiDocumentsUtil.getDocumentResponse(),
                 requestParameters(
-                        parameterWithName("keyword").attributes(ApiDocumentFormatGenerator.getRequiredFalse(), ApiDocumentFormatGenerator.getEmptyFormat()).description("검색어")
+                        parameterWithName("keyword").attributes(ApiDocumentFormatGenerator.getRequiredTrue(), key("format").value("공백 X, 20글자 이하")).description("검색어")
                 ),
                 responseFields(
                         fieldWithPath("code").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description(ApiResponseCode.SUCCESS.getCode()),

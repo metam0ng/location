@@ -1,6 +1,7 @@
 package com.location.api.server.testsupport;
 
 import com.location.common.code.DescriptionCode;
+import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import org.springframework.restdocs.snippet.Attributes;
 
 import java.util.Arrays;
@@ -39,6 +40,8 @@ public class ApiDocumentFormatGenerator {
     public static Attributes.Attribute getDateTimeFormat() {
         return key("format").value("yyyy-MM-dd HH:mm:ss");
     }
+
+    public static Attributes.Attribute getCircuitBreakerStateFormat() { return key("format").value(generate(CircuitBreaker.State.class)); }
 
 
     public static <E extends Enum<E>> String generate(Class<E> enumClass) {
