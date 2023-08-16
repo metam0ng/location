@@ -1,7 +1,6 @@
 package com.location.api.server.keyword.domain;
 
-import com.location.api.server.keyword.domain.Keyword;
-import com.location.api.server.testsupport.service.FakeCountHolder;
+import com.location.api.server.testsupport.service.TestCountHolder;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +17,7 @@ public class KeywordTest {
                 .build();
 
         // when
-        keyword.increaseCount(new FakeCountHolder());
+        keyword.increaseCount(new TestCountHolder());
 
         // then
         assertThat(keyword.getCount()).isEqualTo(2);

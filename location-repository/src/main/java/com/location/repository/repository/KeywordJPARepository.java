@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface SearchKeywordJPARepository extends JpaRepository<KeywordEntity, Long> {
+public interface KeywordJPARepository extends JpaRepository<KeywordEntity, Long> {
     Optional<KeywordEntity> findByKeyword(String keyword);
 }

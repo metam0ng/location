@@ -15,6 +15,12 @@ import java.util.Collections;
 @Slf4j
 public class NaverExternalRestApiInterceptor implements ClientHttpRequestInterceptor {
 
+    private LocationExternalClientProperties properties;
+
+    public NaverExternalRestApiInterceptor(LocationExternalClientProperties properties) {
+        this.properties = properties;
+    }
+
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
         HttpHeaders headers = request.getHeaders();
@@ -22,8 +28,8 @@ public class NaverExternalRestApiInterceptor implements ClientHttpRequestInterce
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setAcceptCharset(Collections.singletonList(StandardCharsets.UTF_8));
 
-        headers.add("X-Naver-Client-Id", "W3JodoIPp0totXHOdKzJ");
-        headers.add("X-Naver-Client-Secret", "HLmB7oJbQE");
+        headers.add("X-Naver-Client-Id", properties.getNaverId());
+        headers.add("X-Naver-Client-Secret", properties.getNaverSecret());
 
         return execution.execute(request, body);
     }

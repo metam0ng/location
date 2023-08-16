@@ -1,9 +1,7 @@
 package com.location.api.server.keyword.repository.query;
 
 import com.location.api.server.keyword.dto.response.KeywordResponse;
-import com.location.api.server.keyword.repository.query.KeywordQueryRepository;
-import com.location.api.server.keyword.repository.query.KeywordQueryRepositoryImpl;
-import com.location.api.server.testsupport.repository.FakeSearchKeywordQueryDslRepository;
+import com.location.api.server.testsupport.repository.FakeKeywordQueryDslRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +15,7 @@ class KeywordQueryRepositoryImplTest {
 
     @BeforeEach
     void setUp() {
-        keywordQueryRepository = new KeywordQueryRepositoryImpl(new FakeSearchKeywordQueryDslRepository());
+        keywordQueryRepository = new KeywordQueryRepositoryImpl(new FakeKeywordQueryDslRepository());
     }
 
     @Test

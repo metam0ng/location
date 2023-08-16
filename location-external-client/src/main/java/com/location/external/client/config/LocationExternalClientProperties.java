@@ -15,7 +15,13 @@ public class LocationExternalClientProperties {
 
     private String kakaoUrl;
 
+    private String kakaoKey;
+
     private String naverUrl;
+
+    private String naverId;
+
+    private String naverSecret;
 
     private Duration connectTimeout;
 

@@ -1,10 +1,9 @@
 package com.location.api.server.keyword.service.command;
 
 import com.location.api.server.keyword.domain.Keyword;
-import com.location.api.server.keyword.service.command.KeywordCommandService;
 import com.location.api.server.keyword.repository.command.KeywordCommandRepository;
 import com.location.api.server.testsupport.repository.FakeKeywordCommandRepository;
-import com.location.api.server.testsupport.service.FakeCountHolder;
+import com.location.api.server.testsupport.service.TestCountHolder;
 import com.location.common.holder.CountHolder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,15 +12,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class KeywordCommandServiceTest {
 
-    private KeywordCommandService keywordCommandService;
     private CountHolder countHolder;
+    private KeywordCommandService keywordCommandService;
     private KeywordCommandRepository keywordCommandRepository;
 
     @BeforeEach
     void setUp() {
-        countHolder = new FakeCountHolder();
+        countHolder = new TestCountHolder();
         keywordCommandRepository = new FakeKeywordCommandRepository();
         keywordCommandService = new KeywordCommandService(countHolder, keywordCommandRepository);
+        keywordCommandRepository.save(Keyword.builder()
+                    .keywordId(1L)
+                    .keyword("카카오 뱅크")
+                    .count(1L)
+                    .version(0)
+                    .build());
     }
 
     @Test
@@ -45,9 +50,7 @@ class KeywordCommandServiceTest {
         Keyword target = keywordCommandService.increaseCount(keyword);
 
         // then
-        Keyword fake = keywordCommandRepository.findByKeyword(keyword).get();
         assertThat(target.getKeyword()).isEqualTo(keyword);
-        assertThat(target.getCount()).isEqualTo(fake.getCount() + countHolder.one());
-
+        assertThat(target.getCount()).isEqualTo(2);
     }
 }

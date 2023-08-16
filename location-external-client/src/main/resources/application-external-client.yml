@@ -2,7 +2,10 @@ client:
   external:
     client-mode: rest
     kakao-url: https://dapi.kakao.com
+    kakoa-key : KakaoAK e0ae0afd53cc28fa5e72e1a58d222091
     naver-url: https://openapi.naver.com
+    naver-id : W3JodoIPp0totXHOdKzJ
+    naver-secret : HLmB7oJbQE
     connect-timeout: 2s
     read-timeout: 5s
 

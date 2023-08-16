@@ -1,8 +1,7 @@
 package com.location.api.server.keyword.repository.factory;
 
 import com.location.api.server.keyword.domain.Keyword;
-import com.location.api.server.keyword.repository.factory.KeywordFactory;
-import com.location.api.server.testsupport.service.FakeCountHolder;
+import com.location.api.server.testsupport.service.TestCountHolder;
 import com.location.common.holder.CountHolder;
 import com.location.repository.entity.KeywordEntity;
 import org.junit.jupiter.api.Test;
@@ -39,7 +38,7 @@ class KeywordFactoryTest {
     void keyword와_countHolder로_Keyword를_만들_수_있다() {
         // given
         String keyword = "카카오";
-        CountHolder countHolder = new FakeCountHolder();
+        CountHolder countHolder = new TestCountHolder();
 
         // when
         Keyword result = KeywordFactory.create(keyword, countHolder);

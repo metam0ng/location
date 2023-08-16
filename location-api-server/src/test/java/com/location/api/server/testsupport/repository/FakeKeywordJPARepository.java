@@ -1,7 +1,7 @@
 package com.location.api.server.testsupport.repository;
 
 import com.location.repository.entity.KeywordEntity;
-import com.location.repository.repository.SearchKeywordJPARepository;
+import com.location.repository.repository.KeywordJPARepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class FakeSearchKeywordJPARepository implements SearchKeywordJPARepository {
+public class FakeKeywordJPARepository implements KeywordJPARepository {
     @Override
     public Optional<KeywordEntity> findByKeyword(String keyword) {
         if (keyword.contains("카카오")) {

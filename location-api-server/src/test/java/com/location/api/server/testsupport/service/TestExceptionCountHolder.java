@@ -2,11 +2,11 @@ package com.location.api.server.testsupport.service;
 
 import com.location.common.holder.ExceptionCountHolder;
 
-public class FakeExceptionCountHolder implements ExceptionCountHolder {
+public class TestExceptionCountHolder implements ExceptionCountHolder {
 
     private int count;
 
-    public FakeExceptionCountHolder(int count) {
+    public TestExceptionCountHolder(int count) {
         this.count = count;
     }
 

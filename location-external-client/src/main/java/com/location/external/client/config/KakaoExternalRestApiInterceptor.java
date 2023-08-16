@@ -14,6 +14,10 @@ import java.util.Collections;
 
 @Slf4j
 public class KakaoExternalRestApiInterceptor implements ClientHttpRequestInterceptor {
+    private LocationExternalClientProperties properties;
+    public KakaoExternalRestApiInterceptor(LocationExternalClientProperties properties) {
+        this.properties = properties;
+    }
 
     @Override
     public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
@@ -22,7 +26,7 @@ public class KakaoExternalRestApiInterceptor implements ClientHttpRequestInterce
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
         headers.setAcceptCharset(Collections.singletonList(StandardCharsets.UTF_8));
 
-        headers.add("Authorization", "KakaoAK e0ae0afd53cc28fa5e72e1a58d222091");
+        headers.add("Authorization", properties.getKakaoKey());
 
         return execution.execute(request, body);
     }

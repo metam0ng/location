@@ -41,14 +41,14 @@ public class LocationExternalRestTemplateProvider {
                 .messageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
                 .setConnectTimeout(properties.getConnectTimeout())
                 .setReadTimeout(properties.getReadTimeout())
-                .interceptors(new KakaoExternalRestApiInterceptor())
+                .interceptors(new KakaoExternalRestApiInterceptor(properties))
                 .build();
 
         naverMapRestTemplate =  new RestTemplateBuilder()
                 .messageConverters(new MappingJackson2HttpMessageConverter(objectMapper))
                 .setConnectTimeout(properties.getConnectTimeout())
                 .setReadTimeout(properties.getReadTimeout())
-                .interceptors(new NaverExternalRestApiInterceptor())
+                .interceptors(new NaverExternalRestApiInterceptor(properties))
                 .build();
 
         if (restTemplateCustomizer == null) {

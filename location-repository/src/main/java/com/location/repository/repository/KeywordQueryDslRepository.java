@@ -4,6 +4,6 @@ import com.location.repository.dto.KeywordDto;
 
 import java.util.List;
 
-public interface SearchKeywordQueryDslRepository {
+public interface KeywordQueryDslRepository {
     List<KeywordDto> findKeywordTop10();
 }
