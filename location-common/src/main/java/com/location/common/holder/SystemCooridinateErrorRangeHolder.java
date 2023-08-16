@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class SystemCooridinateErrorRangeHolder implements CooridinateErrorRangeHolder {
     @Override
     public double errorRange() {
-        return 0.0001;
+        return 0.001;
     }
 
     @Override

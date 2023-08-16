@@ -5,12 +5,9 @@ import com.location.api.server.search.dto.response.SearchResponse;
 import com.location.api.server.search.infrastructure.LocationExternalFetcher;
 import com.location.api.server.search.infrastructure.LocationExternalFetcherImpl;
 import com.location.api.server.search.infrastructure.code.ExternalType;
-import com.location.api.server.search.service.query.SearchQueryService;
-import com.location.api.server.testsupport.service.FakeApplicationEventPublisher;
-import com.location.api.server.testsupport.service.FakeCooridinateErrorRangeHolder;
-import com.location.api.server.testsupport.service.FakeLocationExternalClientKakaoFetcher;
-import com.location.api.server.testsupport.service.FakeLocationExternalClientNaverFetcher;
+import com.location.api.server.testsupport.service.*;
 import com.location.common.holder.CooridinateErrorRangeHolder;
+import com.location.common.holder.ExceptionCountHolder;
 import com.location.external.client.spec.LocationExternalClientFetcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +32,8 @@ class SearchQueryServiceTest {
         List<LocationExternalClientFetcher> locationExternalClientFetcher = List.of(fakeLocationExternalClientKakaoFetcher, fakeLocationExternalClientNaverFetcher);
         locationExternalFetcher = new LocationExternalFetcherImpl(locationExternalClientFetcher);
         ApplicationEventPublisher applicationEventPublisher = new FakeApplicationEventPublisher();
-        searchQueryService = new SearchQueryService(cooridinateErrorRangeHolder, locationExternalFetcher, applicationEventPublisher);
+        searchQueryService = new SearchQueryService(locationExternalFetcher, applicationEventPublisher,
+                cooridinateErrorRangeHolder);
     }
 
     @Test
@@ -66,13 +64,14 @@ class SearchQueryServiceTest {
     void 카카오_검색_결과가_우선으로_조회_된다() {
         // give
         String keyword = "네이버";
+        ExceptionCountHolder exceptionCountHolder = new FakeExceptionCountHolder(0);
 
         // when
         List<SearchResponse> result = searchQueryService.searchLocationByKeyword(keyword);
 
         // then
         assertThat(result).isNotEmpty();
-        LocationInformation locationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER,"네이버", 5, 5);
+        LocationInformation locationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER, "네이버", exceptionCountHolder);
         assertThat(result).isNotEmpty();
         assertThat(result.get(0).getName()).isEqualTo(locationInformation.get(0).getName());
 
@@ -90,7 +89,6 @@ class SearchQueryServiceTest {
         assertThat(result).isNotEmpty();
         assertThat(result.size()).isEqualTo(10);
     }
-
 
 
 }

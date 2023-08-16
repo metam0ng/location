@@ -58,4 +58,68 @@ include::{snippets}/keyword-top-10/response-fields.adoc[]
 Response Example:
 include::{snippets}/keyword-top-10/http-response.adoc[]
 
+[[서킷브레이커]]
+== 서킷 브레이커 API
+
+=== 서킷 브레이커 조회
+==== Request
+Request Example:
+include::{snippets}/circuit-breaker-all/http-request.adoc[]
+
+==== Response
+Response Fields:
+include::{snippets}/circuit-breaker-all/response-fields.adoc[]
+
+Response Example:
+include::{snippets}/circuit-breaker-all/http-response.adoc[]
+
+
+=== 서킷 브레이커 status 조회
+==== Request
+Request Parameters:
+include::{snippets}/circuit-breaker-status/request-parameters.adoc[]
+
+Request Example:
+include::{snippets}/circuit-breaker-status/http-request.adoc[]
+
+==== Response
+Response Fields:
+include::{snippets}/circuit-breaker-status/response-fields.adoc[]
+
+Response Example:
+include::{snippets}/circuit-breaker-status/http-response.adoc[]
+
+
+=== 서킷 브레이커 close
+==== Request
+Request Parameters:
+include::{snippets}/circuit-breaker-close/request-parameters.adoc[]
+
+Request Example:
+include::{snippets}/circuit-breaker-close/http-request.adoc[]
+
+==== Response
+Response Fields:
+include::{snippets}/circuit-breaker-close/response-fields.adoc[]
+
+Response Example:
+include::{snippets}/circuit-breaker-close/http-response.adoc[]
+
+
+=== 서킷 브레이커 open
+==== Request
+Request Parameters:
+include::{snippets}/circuit-breaker-open/request-parameters.adoc[]
+
+Request Example:
+include::{snippets}/circuit-breaker-open/http-request.adoc[]
+
+==== Response
+Response Fields:
+include::{snippets}/circuit-breaker-open/response-fields.adoc[]
+
+Response Example:
+include::{snippets}/circuit-breaker-open/http-response.adoc[]
+
+
 
