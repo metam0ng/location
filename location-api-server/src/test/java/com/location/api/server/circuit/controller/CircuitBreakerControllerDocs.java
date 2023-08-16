@@ -80,7 +80,7 @@ class CircuitBreakerControllerDocs {
                         ApiDocumentsUtil.getDocumentRequest(),
                         ApiDocumentsUtil.getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("name").attributes(ApiDocumentFormatGenerator.getRequiredFalse(),
+                                parameterWithName("name").attributes(ApiDocumentFormatGenerator.getRequiredTrue(),
                                         ApiDocumentFormatGenerator.getEmptyFormat()).description("close 대상")
                         ),
                         responseFields(
@@ -110,7 +110,7 @@ class CircuitBreakerControllerDocs {
                         ApiDocumentsUtil.getDocumentRequest(),
                         ApiDocumentsUtil.getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("name").attributes(ApiDocumentFormatGenerator.getRequiredFalse(),
+                                parameterWithName("name").attributes(ApiDocumentFormatGenerator.getRequiredTrue(),
                                         ApiDocumentFormatGenerator.getEmptyFormat()).description("open 대상")
                         ),
                         responseFields(
@@ -140,13 +140,13 @@ class CircuitBreakerControllerDocs {
                         ApiDocumentsUtil.getDocumentRequest(),
                         ApiDocumentsUtil.getDocumentResponse(),
                         requestParameters(
-                                parameterWithName("name").attributes(ApiDocumentFormatGenerator.getRequiredFalse(),
+                                parameterWithName("name").attributes(ApiDocumentFormatGenerator.getRequiredTrue(),
                                         ApiDocumentFormatGenerator.getEmptyFormat()).description("조회 대상")
                         ),
                         responseFields(
                                 fieldWithPath("code").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description(ApiResponseCode.SUCCESS.getCode()),
                                 fieldWithPath("message").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description(ApiResponseCode.SUCCESS.getDefaultMessage()),
-                                fieldWithPath("data").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("결과")
+                                fieldWithPath("data").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getCircuitBreakerStateFormat()).description("결과")
                         )
                 ));
     }
@@ -180,7 +180,7 @@ class CircuitBreakerControllerDocs {
                                 fieldWithPath("message").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description(ApiResponseCode.SUCCESS.getDefaultMessage()),
                                 fieldWithPath("data[]").type(JsonFieldType.ARRAY).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("결과"),
                                 fieldWithPath("data[].name").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("이름"),
-                                fieldWithPath("data[].state").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getEmptyFormat()).description("상태")
+                                fieldWithPath("data[].state").type(JsonFieldType.STRING).attributes(ApiDocumentFormatGenerator.getCircuitBreakerStateFormat()).description("상태")
                         )
                 ));
     }
