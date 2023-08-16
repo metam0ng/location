@@ -19,7 +19,10 @@ class NaverExternalApiTest {
     void setUp() {
         LocationExternalClientProperties properties = new LocationExternalClientProperties();
         properties.setKakaoUrl("https://dapi.kakao.com");
+        properties.setKakaoKey("KakaoAK e0ae0afd53cc28fa5e72e1a58d222091");
         properties.setNaverUrl("https://openapi.naver.com");
+        properties.setNaverId("W3JodoIPp0totXHOdKzJ");
+        properties.setNaverSecret("HLmB7oJbQE");
         properties.setConnectTimeout(Duration.ofSeconds(2));
         properties.setReadTimeout(Duration.ofSeconds(5));
         LocationExternalRestTemplateProvider restTemplateProvider = new LocationExternalRestTemplateProvider(properties, null);

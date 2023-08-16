@@ -21,16 +21,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = RepositoryConfig.class)
 @AutoConfigureDataJpa
 @Sql(value = "/sql/insert-keyword.sql", executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD)
-class SearchKeywordQueryDslRepositoryImplTest {
+class KeywordQueryDslRepositoryImplTest {
 
     @Autowired
-    SearchKeywordQueryDslRepository searchKeywordQueryDslRepository;
+    KeywordQueryDslRepository keywordQueryDslRepository;
 
     @Test
     void 검색어_count수가_많은_순으로_10개가_조회_된다() {
         // given
         // when
-        List<KeywordDto> result = searchKeywordQueryDslRepository.findKeywordTop10();
+        List<KeywordDto> result = keywordQueryDslRepository.findKeywordTop10();
 
         // then
         assertThat(result).isNotEmpty();

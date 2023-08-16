@@ -12,9 +12,9 @@ import static com.location.repository.entity.QKeywordEntity.keywordEntity;
 
 
 @Repository
-public class SearchKeywordQueryDslRepositoryImpl extends QuerydslRepositorySupport implements SearchKeywordQueryDslRepository{
+public class KeywordQueryDslRepositoryImpl extends QuerydslRepositorySupport implements KeywordQueryDslRepository {
 
-    public SearchKeywordQueryDslRepositoryImpl() {
+    public KeywordQueryDslRepositoryImpl() {
         super(KeywordEntity.class);
     }
 

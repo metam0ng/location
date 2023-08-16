@@ -1,9 +1,7 @@
 package com.location.api.server.keyword.repository.command;
 
 import com.location.api.server.keyword.domain.Keyword;
-import com.location.api.server.keyword.repository.command.KeywordCommandRepository;
-import com.location.api.server.keyword.repository.command.KeywordCommandRepositoryImpl;
-import com.location.api.server.testsupport.repository.FakeSearchKeywordJPARepository;
+import com.location.api.server.testsupport.repository.FakeKeywordJPARepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +15,7 @@ class KeywordCommandRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        keywordCommandRepository = new KeywordCommandRepositoryImpl(new FakeSearchKeywordJPARepository());
+        keywordCommandRepository = new KeywordCommandRepositoryImpl(new FakeKeywordJPARepository());
     }
 
     @Test

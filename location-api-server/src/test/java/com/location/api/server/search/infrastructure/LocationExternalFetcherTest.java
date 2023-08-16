@@ -2,7 +2,7 @@ package com.location.api.server.search.infrastructure;
 
 import com.location.api.server.search.domain.LocationInformation;
 import com.location.api.server.search.infrastructure.code.ExternalType;
-import com.location.api.server.testsupport.service.FakeExceptionCountHolder;
+import com.location.api.server.testsupport.service.TestExceptionCountHolder;
 import com.location.api.server.testsupport.service.FakeLocationExternalClientKakaoFetcher;
 import com.location.api.server.testsupport.service.FakeLocationExternalClientNaverFetcher;
 import com.location.common.holder.ExceptionCountHolder;
@@ -30,7 +30,7 @@ class LocationExternalFetcherTest {
     @Test
     void keyword를_통해_검색_결과를_조회_할_수_있다() {
         // give
-        ExceptionCountHolder exceptionCountHolder = new FakeExceptionCountHolder(0);
+        ExceptionCountHolder exceptionCountHolder = new TestExceptionCountHolder(0);
 
         // when
         LocationInformation result = locationExternalFetcher.searchLocationByKeyword(ExternalType.KAKAO, "카카오", exceptionCountHolder);

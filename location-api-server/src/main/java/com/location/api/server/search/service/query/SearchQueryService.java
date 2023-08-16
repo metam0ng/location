@@ -1,14 +1,13 @@
 package com.location.api.server.search.service.query;
 
+import com.location.api.server.common.event.SearchEvent;
 import com.location.api.server.search.domain.LocationInformation;
 import com.location.api.server.search.dto.response.SearchResponse;
-import com.location.api.server.common.event.SearchEvent;
 import com.location.api.server.search.infrastructure.LocationExternalFetcher;
 import com.location.api.server.search.infrastructure.code.ExternalType;
 import com.location.common.exception.LocationExternalApiException;
 import com.location.common.holder.CooridinateErrorRangeHolder;
 import com.location.common.holder.ExceptionCountHolder;
-import com.location.common.holder.SystemExceptionCountHolder;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
@@ -22,6 +21,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchQueryService {
 
+    private final ExceptionCountHolder exceptionCountHolder;
     private final LocationExternalFetcher locationExternalFetcher;
     private final ApplicationEventPublisher applicationEventPublisher;
     private final CooridinateErrorRangeHolder cooridinateErrorRangeHolder;
@@ -29,7 +29,6 @@ public class SearchQueryService {
 
     public List<SearchResponse> searchLocationByKeyword(String keyword) {
         String stripKeyword = keyword.strip();
-        ExceptionCountHolder exceptionCountHolder = new SystemExceptionCountHolder(0);
         LocationInformation kakaoLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.KAKAO, stripKeyword, exceptionCountHolder);
         LocationInformation naverLocationInformation = locationExternalFetcher.searchLocationByKeyword(ExternalType.NAVER, stripKeyword, exceptionCountHolder);
         if (exceptionCountHolder.isEqualOrOver(2)) throw new LocationExternalApiException();

@@ -1,12 +1,13 @@
 package com.location.common.holder;
 
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
+
+@Component
+@RequestScope
 public class SystemExceptionCountHolder implements ExceptionCountHolder {
 
     private int count;
-
-    public SystemExceptionCountHolder(int count) {
-        this.count = count;
-    }
 
     @Override
     public int count() {
