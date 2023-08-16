@@ -1,11 +1,11 @@
 package com.location.api.server.search.infrastructure;
 
 import com.location.api.server.search.domain.LocationInformation;
-import com.location.api.server.search.infrastructure.LocationExternalFetcher;
-import com.location.api.server.search.infrastructure.LocationExternalFetcherImpl;
 import com.location.api.server.search.infrastructure.code.ExternalType;
+import com.location.api.server.testsupport.service.FakeExceptionCountHolder;
 import com.location.api.server.testsupport.service.FakeLocationExternalClientKakaoFetcher;
 import com.location.api.server.testsupport.service.FakeLocationExternalClientNaverFetcher;
+import com.location.common.holder.ExceptionCountHolder;
 import com.location.external.client.spec.LocationExternalClientFetcher;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,8 +30,10 @@ class LocationExternalFetcherTest {
     @Test
     void keyword를_통해_검색_결과를_조회_할_수_있다() {
         // give
+        ExceptionCountHolder exceptionCountHolder = new FakeExceptionCountHolder(0);
+
         // when
-        LocationInformation result = locationExternalFetcher.searchLocationByKeyword(ExternalType.KAKAO, "카카오", 5, 10);
+        LocationInformation result = locationExternalFetcher.searchLocationByKeyword(ExternalType.KAKAO, "카카오", exceptionCountHolder);
 
         // then
         assertThat(result).isNotNull();

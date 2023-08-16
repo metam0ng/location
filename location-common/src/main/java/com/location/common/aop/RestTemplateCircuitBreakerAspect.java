@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Optional;
@@ -23,9 +21,7 @@ public class RestTemplateCircuitBreakerAspect {
 
     @Around("execution(* org.springframework.web.client.RestTemplate.*(..)) && args(url,..)")
     public Object aspect(ProceedingJoinPoint pjp, String url) throws Throwable {
-        RestTemplate restTemplate = (RestTemplate) pjp.getTarget();
-        URI uri = restTemplate.getRequestFactory().createRequest(new URI(url), HttpMethod.GET).getURI();
-        return aspect(pjp, uri);
+        return aspect(pjp, new URI(url));
     }
 
     @Around("execution(* org.springframework.web.client.RestTemplate.*(..)) && args(uri,..)")
