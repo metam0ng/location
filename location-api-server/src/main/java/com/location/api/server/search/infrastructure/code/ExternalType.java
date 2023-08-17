@@ -5,8 +5,7 @@ import com.location.external.client.spec.code.ApiType;
 
 public enum ExternalType implements DescriptionCode {
     KAKAO("카카오", ApiType.KAKAO, 10, 10),
-    NAVER("네이버", ApiType.NAVER, 5, 5),
-    EMPTY("없음", null, 0, 0);
+    NAVER("네이버", ApiType.NAVER, 5, 5);
 
     private final String description;
     private final ApiType apiType;

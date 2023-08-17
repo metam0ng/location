@@ -15,12 +15,15 @@ import java.util.Collections;
 @Slf4j
 public class KakaoExternalRestApiInterceptor implements ClientHttpRequestInterceptor {
     private LocationExternalClientProperties properties;
+
     public KakaoExternalRestApiInterceptor(LocationExternalClientProperties properties) {
         this.properties = properties;
     }
 
     @Override
-    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution) throws IOException {
+    public ClientHttpResponse intercept(HttpRequest request,
+                                        byte[] body,
+                                        ClientHttpRequestExecution execution) throws IOException {
         HttpHeaders headers = request.getHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
