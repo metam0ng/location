@@ -26,13 +26,13 @@ public class KeywordEntity {
     private Long count;
 
     @Version
-    private int version;
+    private long version;
 
     @Builder
     public KeywordEntity(Long keywordId,
                          String keyword,
                          Long count,
-                         int version) {
+                         long version) {
         this.keywordId = keywordId;
         this.keyword = keyword;
         this.count = count;
