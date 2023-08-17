@@ -26,7 +26,7 @@
 - proj4j 1.3.0
   - 좌표 변환을 위한 라이브러리
   - 동일 업체 판단을 위해 사용
-  - 네이버 Api의 KATECH 좌표계를 longitude 좌표계로 변경하여 카카오 Api의 좌표계와 통일 하기 위함
+  - 네이버 API의 KATECH 좌표계를 longitude 좌표계로 변경하여 카카오 API의 좌표계와 통일 하기 위함
 - resilience4j
   - Circuit Breaker를 위한 라이브러리
   - 외부 서비스의 장애에 대비해 사용
