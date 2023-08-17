@@ -1,7 +1,9 @@
 package com.location.api.server.testsupport.service;
 
 import com.location.common.holder.ExceptionCountHolder;
+import lombok.Getter;
 
+@Getter
 public class TestExceptionCountHolder implements ExceptionCountHolder {
 
     private int count;
