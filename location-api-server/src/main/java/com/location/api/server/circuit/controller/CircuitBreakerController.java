@@ -29,6 +29,7 @@ public class CircuitBreakerController {
 
     @GetMapping("/circuit/close")
     public ResponseEntity<ApiResponse<Void>> close(@RequestParam @NotBlank String name) {
+        // test
         circuitBreakerService.close(name);
         ApiResponse<Void> apiResponse = ApiResponseGenerator.success();
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
